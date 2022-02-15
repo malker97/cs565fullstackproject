@@ -1,26 +1,13 @@
-For Mac:
-Installing virtualenv : 
-```
-python3 -m pip install virtualenv
-```
-Create a virtual enviroment called env:
-```
-python3 -m virtualenv env
-```
-Active virtual enviroment:
-```
-source env/bin/activate
-```
-Leave virtual enviroment:
-```
-deactivate
-```
-Install flask & flask-sqlalchemy:
-```
-pip install flask flask-sqlalchemy
-```
+CS 465/565 Final Project: Todo App
 
-To run:
-```
-python3 app.py
-```
+To build this project, you'll need to have `npm` and `nodejs` installed.
+
+Clone the repo at `https://github.com/malker97/cs565fullstackproject.git` and navigate to `/src/backend`.
+
+Then, to install dependencies: `npm install`.
+
+To start the server in production mode: `npm run start`.
+
+To start the server in development mode: `npm run dev`.
+
+To start the server with the debugger on: `npm run debug`.
