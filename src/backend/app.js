@@ -12,6 +12,15 @@ var newsRouter = require("./routes/news");
 
 var app = express();
 
+//Set up mongoose connection
+var mongoose = require("mongoose");
+// MONGOOSE DEBUGGER:
+//mongoose.set("debug", true);
+var mongoDB = "mongodb+srv://jesse:fi8ovLSXGsT9LW@cluster0.wcoet.mongodb.net/todo?retryWrites=true&w=majority";
+mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
+var db = mongoose.connection;
+db.on("error", console.error.bind(console, "MongoDB connection error:"));
+
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "jade");

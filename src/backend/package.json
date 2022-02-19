@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node ./bin/www",
     "dev": "nodemon ./bin/www",
-    "debug": "DEBUG=backend:* npm run devstart"
+    "debug": "DEBUG=backend:* npm run dev"
   },
   "dependencies": {
     "async": "^3.2.3",
@@ -14,6 +14,7 @@
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
     "jade": "^0.29.0",
+    "mongoose": "^6.2.2",
     "morgan": "~1.9.1"
   },
   "devDependencies": {

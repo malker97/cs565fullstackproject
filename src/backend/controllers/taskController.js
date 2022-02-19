@@ -1,4 +1,6 @@
-// Connect to DB models here???
+var Task = require("../models/task");
+// TO test:
+var Genre = require("../models/genre");
 
 var async = require("async");
 
@@ -7,7 +9,15 @@ var async = require("async");
 // };
 
 exports.task_list = function (req, res) {
-  res.send("NOT IMPLEMENTED: Task list");
+  //Genre.find({})
+  Task.find({}).exec(function (err, list_tasks) {
+    if (err) {
+      return next(err);
+    }
+    console.log(list_tasks);
+    //Successful, so render
+    res.render("task_list", { title: "Task List", task_list: list_tasks });
+  });
 };
 
 exports.task_detail = function (req, res) {

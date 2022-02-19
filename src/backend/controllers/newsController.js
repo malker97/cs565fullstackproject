@@ -1,4 +1,5 @@
-// Connect to DB models here???
+var News = require("../models/news");
+var async = require("async");
 
 var async = require("async");
 
@@ -7,7 +8,13 @@ var async = require("async");
 // };
 
 exports.news_list = function (req, res) {
-  res.send("NOT IMPLEMENTED: News list");
+  News.find({}).exec(function (err, list_news) {
+    if (err) {
+      return next(err);
+    }
+    //Successful, so render
+    res.render("news_list", { title: "News List", news_list: list_news });
+  });
 };
 
 exports.news_detail = function (req, res) {
