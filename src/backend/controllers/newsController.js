@@ -13,7 +13,8 @@ exports.news_list = function (req, res) {
       return next(err);
     }
     //Successful, so render
-    res.render("news_list", { title: "News List", news_list: list_news });
+    //res.render("news_list", { title: "News List", news_list: list_news });
+    res.json(list_news);
   });
 };
 

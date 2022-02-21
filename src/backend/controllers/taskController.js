@@ -16,7 +16,8 @@ exports.task_list = function (req, res) {
     }
     console.log(list_tasks);
     //Successful, so render
-    res.render("task_list", { title: "Task List", task_list: list_tasks });
+    //res.render("task_list", { title: "Task List", task_list: list_tasks });
+    res.json(list_tasks);
   });
 };
 

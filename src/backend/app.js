@@ -4,11 +4,13 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
+require("dotenv").config();
+
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
-var aboutRouter = require("./routes/about");
-var taskRouter = require("./routes/task");
-var newsRouter = require("./routes/news");
+var aboutRouter = require("./api/about");
+var taskRouter = require("./api/task");
+var newsRouter = require("./api/news");
 
 var app = express();
 
@@ -16,7 +18,7 @@ var app = express();
 var mongoose = require("mongoose");
 // MONGOOSE DEBUGGER:
 //mongoose.set("debug", true);
-var mongoDB = "mongodb+srv://jesse:fi8ovLSXGsT9LW@cluster0.wcoet.mongodb.net/todo?retryWrites=true&w=majority";
+var mongoDB = `mongodb+srv://${process.env.DBUSERNAME}:${process.env.DBPASSWORD}@cluster0.wcoet.mongodb.net/todo?retryWrites=true&w=majority`;
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 var db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
@@ -32,10 +34,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
-app.use("/users", usersRouter);
-app.use("/about", aboutRouter);
-app.use("/task", taskRouter);
-app.use("/news", newsRouter);
+//app.use("/users", usersRouter);
+app.use("/api/about", aboutRouter);
+app.use("/api/task", taskRouter);
+app.use("/api/news", newsRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
