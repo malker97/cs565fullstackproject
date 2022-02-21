@@ -10,6 +10,7 @@ import IconButton from '@material-ui/core/IconButton';
 import CommentIcon from '@material-ui/icons/Comment';
 import Popover from '@material-ui/core/Popover';
 import { Typography } from "@material-ui/core";
+import Data from '../exampled_json/tasklist.json';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -57,8 +58,8 @@ function Tasklist() {
 
   return (
     <List className={classes.root}>
-      {[0, 1, 2, 3].map((value) => {
-        const labelId = `checkbox-list-label-${value}`;
+      {Data.map((value) => {
+        const labelId = `checkbox-list-label-${value.id}`;
 
         return (
           <ListItem key={value} role={undefined} dense button onClick={handleToggle(value)}>
@@ -71,16 +72,15 @@ function Tasklist() {
                 inputProps={{ 'aria-labelledby': labelId }}
               />
             </ListItemIcon>
-            <ListItemText id={labelId} primary={`Line item ${value + 1}`} />
+            <ListItemText id={labelId} primary={`${value.title}`} />
             <ListItemSecondaryAction>
-              <IconButton edge="end" aria-label="comments">
-                <CommentIcon
-                  aria-owns={open ? 'mouse-over-popover' : undefined}
+              <IconButton edge="end" aria-label="comments"aria-owns={open ? 'mouse-over-popover' : undefined}
                   aria-haspopup="true"
                   onMouseEnter={handlePopoverOpen}
-                  onMouseLeave={handlePopoverClose}
-                />
-                <Popover
+                  onMouseLeave={handlePopoverClose}>
+                <CommentIcon />
+              </IconButton>
+              <Popover
                   id="mouse-over-popover"
                   className={classes.popover}
                   classes={{
@@ -99,9 +99,8 @@ function Tasklist() {
                   onClose={handlePopoverClose}
                   disableRestoreFocus
                 >
-                  <Typography>I use Popover.</Typography>
+                  <Typography>Popover didn't work!!!!!</Typography>
                 </Popover>
-              </IconButton>
             </ListItemSecondaryAction>
           </ListItem>
         );
