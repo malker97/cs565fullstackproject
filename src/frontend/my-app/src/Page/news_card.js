@@ -30,6 +30,8 @@ const useStyles = makeStyles((theme) => ({
 function News_card (props) {
   const classes = useStyles();
 
+  console.log(props);
+
     return(
         <Paper className={classes.paper}>
         <Grid container spacing={2}>
@@ -38,7 +40,7 @@ function News_card (props) {
               <img
                 className={classes.img}
                 alt="complex"
-                src= {props.image}
+                src= {props.data.image}
               />
             </ButtonBase>
           </Grid>
@@ -47,13 +49,13 @@ function News_card (props) {
             }>
               <Grid item xs>
                 <Typography gutterBottom variant="h6">
-                  {props.title}
+                  {props.data.title}
                 </Typography>
                 <Typography variant="body2" color="textSecondary">
-                  {props.author}
+                  {props.data.author}
                 </Typography>
                 <Typography variant="body1" gutterBottom>
-                  {props.description}
+                  {props.data.description}
                 </Typography>
               </Grid>
             </Grid>
