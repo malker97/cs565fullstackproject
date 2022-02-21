@@ -11,3 +11,5 @@ To start the server in production mode: `npm run start`.
 To start the server in development mode: `npm run dev`.
 
 To start the server with the debugger on: `npm run debug`.
+
+The server is configured in `/bin/www` to run on port `3010`.
