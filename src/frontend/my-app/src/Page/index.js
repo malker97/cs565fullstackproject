@@ -1,0 +1,6 @@
+export {default as Home} from './home'
+export {default as News} from './news'
+export {default as Tasklist} from './tasklist'
+export {default as Createtask} from './createtask'
+export {default as About} from './about'
+export {default as Navbar} from './navbar'
