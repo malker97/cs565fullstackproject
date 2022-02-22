@@ -52,6 +52,9 @@ function Navbar() {
             <Link to="/news" className={classes.link}>
               News
             </Link>
+            <Link to="/calendar" className={classes.link}>
+              Calendar
+            </Link>
             <Link to="/about" className={classes.link}>
               FAQ
             </Link>

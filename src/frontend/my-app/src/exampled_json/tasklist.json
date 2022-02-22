@@ -1,0 +1,27 @@
+[
+    {
+        "id" : 0,
+        "title" : "midterm",
+        "description" : "Need to study for midterm exam for CS101"
+    },
+    {
+        "id" : 1,
+        "title" : "assignment 1",
+        "description" : "assignment 1 due next Mon"
+    },
+    {
+        "id" : 2,
+        "title" : "quiz 1",
+        "description" : "quiz 1 due next Tues"
+    },
+    {
+        "id" : 3,
+        "title" : "project 1",
+        "description" : "work on project 1 for CS101"
+    },
+    {
+        "id" : 4,
+        "title" : "final",
+        "description" : "Need to study for final exam for CS101"
+    }
+]
