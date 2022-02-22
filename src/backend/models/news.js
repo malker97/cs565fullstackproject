@@ -10,7 +10,7 @@ var NewsSchema = new Schema({
   date: { type: Date },
 });
 
-// Virtual for news's URL
+// //Virtual for news's URL
 // NewsSchema.virtual("url").get(function () {
 //   return "/news/" + this._id;
 // });
