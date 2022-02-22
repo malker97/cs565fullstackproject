@@ -1,24 +1,25 @@
 import React from "react";
 import axios from "axios";
-
+import { useEffect, useState } from "react";
 function Weather() {
-
-    const get_news = () => {
-        axios
-          .get(
-            `https://wttr.in`
-          )
-          .then((res) => {
-            console.log(res);
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      };
+    const [info, setWeather] = useState("");
+    const currtweather = "";
+    const get_weather = () => {
+      axios.get('https://wttr.in/?format=3')
+      .then(resp => {
+        console.log(resp.data);
+        const locwttr = resp.data;
+        setWeather(locwttr);
+      });
+    };
+    useEffect(() => {
+      get_weather();
+    }, []);
     return(
         <div>
-            {/* <h1>WEATHER</h1> */}
+            {/* {Weather} */}
         </div>
     )
+
 }
 export default Weather;
