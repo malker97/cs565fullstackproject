@@ -7,6 +7,8 @@ import {
   makeStyles,
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 const useStyles = makeStyles((theme) => ({
   navlinks: {
@@ -31,7 +33,19 @@ const useStyles = makeStyles((theme) => ({
 
 function Navbar() {
   const classes = useStyles();
-
+  const [repo, setWeather] = useState("");
+  const get_weather = () => {
+    axios.get('https://wttr.in/?format=3')
+    .then(resp => {
+      console.log(resp.data);
+      const locwttr = resp.data;
+      setWeather(locwttr);
+      // return resp.data;
+    });
+  };
+  useEffect(() => {
+    get_weather();
+  }, []);
   return (
     <AppBar position="static">
       <CssBaseline />
@@ -40,6 +54,9 @@ function Navbar() {
           To-do app
         </Typography>
           <div className={classes.navlinks}>
+            <Link to="/" className={classes.link}>
+              {repo}
+            </Link>
             <Link to="/" className={classes.link}>
               Home
             </Link>
@@ -58,6 +75,7 @@ function Navbar() {
             <Link to="/about" className={classes.link}>
               FAQ
             </Link>
+
           </div>
       </Toolbar>
     </AppBar>

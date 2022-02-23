@@ -2,14 +2,14 @@ import React from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 function Weather() {
-    const [info, setWeather] = useState("");
-    const currtweather = "";
+    const [repo, setWeather] = useState("");
     const get_weather = () => {
       axios.get('https://wttr.in/?format=3')
       .then(resp => {
         console.log(resp.data);
         const locwttr = resp.data;
         setWeather(locwttr);
+        // return resp.data;
       });
     };
     useEffect(() => {
@@ -18,6 +18,7 @@ function Weather() {
     return(
         <div>
             {/* {Weather} */}
+            {/* {repo} */}
         </div>
     )
 
