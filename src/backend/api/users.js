@@ -8,19 +8,19 @@ var users_controller = require("../controllers/usersController");
 // GET /api/users
 router.get("/", users_controller.users_list);
 
-// GET /api/user/:id
+// GET /api/users/:id
 router.get("/:id", users_controller.user_detail);
 
-// /api/user/create POST
+// /api/users/create POST
 router.post("/create", users_controller.user_create);
 
-// GET /api/user/delete/:id
+// GET /api/users/delete/:id
 router.get("/delete/:id", users_controller.user_delete);
 
-// GET /api/user/update/:id
+// GET /api/users/update/:id
 router.get("/update/:id", users_controller.user_update_get);
 
-// POST /api/user/update/:id
+// POST /api/users/update/:id
 router.post("/update/:id", users_controller.user_update_post);
 
 module.exports = router;

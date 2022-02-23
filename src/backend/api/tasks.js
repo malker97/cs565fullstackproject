@@ -8,28 +8,28 @@ var tasks_controller = require("../controllers/tasksController");
 // GET /api/tasks
 router.get("/", tasks_controller.tasks_list);
 
-// GET /api/task/:id
+// GET /api/tasks/:id
 router.get("/:id", tasks_controller.task_detail);
 
 // GET /api/tasks/user/:id
-router.get("/user/:id", tasks_controller.user_tasks_list);
+router.get("/user/:userID", tasks_controller.user_tasks_list);
 
-// GET /api/task/create
-router.get("/create", tasks_controller.task_create_get);
+// GET /api/tasks/create
+//router.get("/create", tasks_controller.task_create_get);
 
-// POST /api/task/create
+// POST /api/tasks/create
 router.post("/create", tasks_controller.task_create_post);
 
-// GET /api/task/delete
-router.get("/:id/delete", tasks_controller.task_delete_get);
+// GET /api/tasks/delete
+router.get("/delete/:id", tasks_controller.task_delete_get);
 
-// POST /api/task/delete
-router.post("/:id/delete", tasks_controller.task_delete_post);
+// POST /api/tasks/delete
+//router.post("/:id/delete", tasks_controller.task_delete_post);
 
-// GET /api/task/update
-router.get("/:id/update", tasks_controller.task_update_get);
+// GET /api/tasks/update
+//router.get("/:id/update", tasks_controller.task_update_get);
 
-// POST /api/task/update
-router.post("/:id/update", tasks_controller.task_update_post);
+// POST /api/tasks/update
+router.post("/update/:id", tasks_controller.task_update_post);
 
 module.exports = router;
