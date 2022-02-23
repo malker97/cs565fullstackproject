@@ -8,6 +8,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
+import Stack from '@mui/material/Stack';
 
 const styles = theme => ({
   appBar: {
@@ -80,6 +81,40 @@ function About(props) {
             </Typography>
           </div>
         </div>
+        <div className={classes.heroUnit}>
+          <div className={classes.heroContent}>
+            <Typography component="h2" variant="h3" align="center" color="textPrimary" gutterBottom>
+              Tech Stack
+            </Typography>
+            <Typography variant="h6" align="center" color="textSecondary" paragraph>
+              Our information is below.
+            </Typography>
+          </div>
+        </div>
+        {cards.map(card => (
+        <Stack container direction="row" spacing={30}         
+        style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center"
+          }}>
+            <Card className={classes.card} alignItems="center">
+                  <CardMedia
+                    className={classes.cardMedia}
+                    image= {card.imglink}
+                    title="Image title"
+                  />
+                  <CardContent className={classes.cardContent}>
+                    <Typography gutterBottom variant="h5" component="h2">
+                      {card.name}
+                    </Typography>
+                    <Typography>
+                      {card.description}
+                    </Typography>
+                  </CardContent>
+            </Card>
+        </Stack>
+         ))}
         <div className={classes.heroUnit}>
           <div className={classes.heroContent}>
             <Typography component="h2" variant="h3" align="center" color="textPrimary" gutterBottom>
