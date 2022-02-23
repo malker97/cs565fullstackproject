@@ -30,26 +30,26 @@ exports.user_tasks_list = function (req, res) {
   res.send(`NOT IMPLEMENTED: Tasks detail: ${req.params.user_id}`);
 };
 
-exports.tasks_create_get = function (req, res) {
+exports.task_create_get = function (req, res) {
   res.send("NOT IMPLEMENTED: Tasks create GET");
 };
 
-exports.tasks_create_post = function (req, res) {
+exports.task_create_post = function (req, res) {
   res.send("NOT IMPLEMENTED: Tasks create POST");
 };
 
-exports.tasks_delete_get = function (req, res) {
+exports.task_delete_get = function (req, res) {
   res.send("NOT IMPLEMENTED: Tasks delete GET");
 };
 
-exports.tasks_delete_post = function (req, res) {
+exports.task_delete_post = function (req, res) {
   res.send("NOT IMPLEMENTED: Tasks delete POST");
 };
 
-exports.tasks_update_get = function (req, res) {
+exports.task_update_get = function (req, res) {
   res.send("NOT IMPLEMENTED: Tasks update GET");
 };
 
-exports.tasks_update_post = function (req, res) {
+exports.task_update_post = function (req, res) {
   res.send("NOT IMPLEMENTED: Taskssgg update POST");
 };

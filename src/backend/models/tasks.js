@@ -13,7 +13,7 @@ var TasksSchema = new Schema({
 
 // Virtual for task's URL
 TasksSchema.virtual("url").get(function () {
-  return "/tasks/" + this._id;
+  return "/task/" + this._id;
 });
 
 //Export model

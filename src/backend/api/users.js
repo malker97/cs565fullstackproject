@@ -4,22 +4,23 @@ var router = express.Router();
 var users_controller = require("../controllers/usersController");
 
 // ABOUT ROUTES
-// /api/users GET
+
+// GET /api/users
 router.get("/", users_controller.users_list);
 
-// /api/users/:id GET
-router.get("/:id", users_controller.users_detail);
+// GET /api/user/:id
+router.get("/:id", users_controller.user_detail);
 
-// /api/users/create POST
-router.post("/create", users_controller.users_create);
+// /api/user/create POST
+router.post("/create", users_controller.user_create);
 
-// /api/users/delete/:id GET
-router.get("/delete/:id", users_controller.users_delete);
+// GET /api/user/delete/:id
+router.get("/delete/:id", users_controller.user_delete);
 
-// /api/users/update/:id GET
-router.get("/update/:id", users_controller.users_update_get);
+// GET /api/user/update/:id
+router.get("/update/:id", users_controller.user_update_get);
 
-// /api/users/update/:id POST
-router.post("/update/:id", users_controller.users_update_post);
+// POST /api/user/update/:id
+router.post("/update/:id", users_controller.user_update_post);
 
 module.exports = router;

@@ -9,7 +9,7 @@ var UsersSchema = new Schema({
 
 // Virtual for about's URL
 UsersSchema.virtual("url").get(function () {
-  return "/users/" + this._id;
+  return "/user/" + this._id;
 });
 
 //Export model

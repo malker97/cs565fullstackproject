@@ -11,22 +11,22 @@ exports.users_list = function (req, res, next) {
   });
 };
 
-exports.users_detail = function (req, res, next) {
-  Users.findById(req.params.id).exec(function (err, detail_users) {
+exports.user_detail = function (req, res, next) {
+  Users.findById(req.params.id).exec(function (err, detail_user) {
     if (err) {
       return next(err);
     }
-    if (detail_users == null) {
-      var err = new Error("Person not found");
+    if (detail_user == null) {
+      var err = new Error("User not found");
       err.status = 404;
       return next(err);
     }
-    res.json(detail_users);
+    res.json(detail_user);
   });
 };
 
 // Handle Users create on POST.
-exports.users_create = [
+exports.user_create = [
   // Validate and sanitize the fields:
   body("name", "Name required").trim().isLength({ min: 1 }).escape(),
   body("description", "").trim().isLength({ min: 1 }).escape(),
@@ -75,12 +75,12 @@ exports.users_create = [
 ];
 
 // Handle person delete on GET.
-exports.users_delete = function (req, res, next) {
-  Users.findById(req.params.id).exec(function (err, person) {
+exports.user_delete = function (req, res, next) {
+  Users.findById(req.params.id).exec(function (err, user) {
     if (err) {
       return next(err);
     }
-    if (person == null) {
+    if (user == null) {
       console.log(err);
       res.redirect("/users");
     }
@@ -100,21 +100,21 @@ exports.users_delete = function (req, res, next) {
 };
 
 // Return JSON for person to update on GET.
-exports.users_update_get = function (req, res) {
-  Users.findById(req.params.id).exec(function (err, person) {
+exports.user_update_get = function (req, res) {
+  Users.findById(req.params.id).exec(function (err, user) {
     if (err) {
       return next(err);
     }
-    if (person == null) {
+    if (user == null) {
       res.redirect("/users");
     }
     // Successful, so return data:
-    return res.json(person);
+    return res.json(user);
   });
 };
 
 // Handle person update on POST.
-exports.users_update_post = [
+exports.user_update_post = [
   // Validate and sanitize the name field.
   body("name", "Name required").trim().isLength({ min: 1 }).escape(),
   body("description", "Description required").trim().isLength({ min: 1 }).escape(),
@@ -126,7 +126,7 @@ exports.users_update_post = [
     const errors = validationResult(req);
 
     // Create a genre object with escaped and trimmed data.
-    var person = new Users({
+    var user = new Users({
       name: req.body.name,
       description: req.body.description,
       image: req.body.image,
@@ -134,7 +134,7 @@ exports.users_update_post = [
     });
     if (!errors.isEmpty()) {
       // There are errors. Render form again with sanitized values and error messages.
-      Users.findById(req.params.id).exec(function (err, person) {
+      Users.findById(req.params.id).exec(function (err, user) {
         if (err) {
           return next(err);
         }
@@ -145,18 +145,18 @@ exports.users_update_post = [
 
         // FIXME Not sure what should happen.
         // Right now I'm passing an array with the new_user object and the errors array.
-        return [person, errors.array()];
+        return [user, errors.array()];
       });
     } else {
       // Data from form is valid. Update the record.
-      Users.findByIdAndUpdate(req.params.id, person, {}, function (err, theperson) {
+      Users.findByIdAndUpdate(req.params.id, user, {}, function (err, theUser) {
         if (err) {
           return next(err);
         }
         // Successful - redirect to new record.
         //res.redirect(theperson.url);
         // FOR TESTING:
-        res.redirect(`/api/${theperson.url}`);
+        res.redirect(`/api/${theUser.url}`);
       });
     }
   },
