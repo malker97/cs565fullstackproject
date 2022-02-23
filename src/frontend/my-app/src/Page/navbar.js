@@ -52,9 +52,9 @@ function Navbar() {
       <Toolbar>
         <Typography variant="h4" className={classes.logo}>
           To-do app
-        </Typography>
+        </Typography >
           <div className={classes.navlinks}>
-            <Link to="/weather" className={classes.link}>
+            <Link style={{ fontSize: 14 }} to="/weather" className={classes.link}>
               {repo}
             </Link>
             <Link to="/" className={classes.link}>
