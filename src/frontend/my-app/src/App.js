@@ -8,7 +8,7 @@ function App() {
     <div>
       <Router>
         <Navbar />
-        <Weather />
+        {/* <Weather /> */}
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route path="/news" element={<News />} />
@@ -16,6 +16,7 @@ function App() {
           <Route path="/createtask" element={<Createtask />} />
           <Route path="/calendar" element={<Calendar />} />
           <Route path="/about" element={<About />} />
+          <Route path="/weather" element={<Weather />} />
         </Routes>
       </Router>
     </div>

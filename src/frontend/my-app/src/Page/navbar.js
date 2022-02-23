@@ -54,7 +54,7 @@ function Navbar() {
           To-do app
         </Typography>
           <div className={classes.navlinks}>
-            <Link to="/" className={classes.link}>
+            <Link to="/weather" className={classes.link}>
               {repo}
             </Link>
             <Link to="/" className={classes.link}>

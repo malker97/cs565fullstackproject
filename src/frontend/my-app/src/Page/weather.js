@@ -2,9 +2,9 @@ import React from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 function Weather() {
-    const [repo, setWeather] = useState("");
+    const [repo, setWeather] = useState([]);
     const get_weather = () => {
-      axios.get('https://wttr.in/?format=3')
+      axios.get('https://wttr.in/?format=j1')
       .then(resp => {
         console.log(resp.data);
         const locwttr = resp.data;
