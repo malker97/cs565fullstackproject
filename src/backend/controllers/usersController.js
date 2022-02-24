@@ -3,6 +3,7 @@ var async = require("async");
 const { body, validationResult } = require("express-validator");
 
 exports.users_list = function (req, res, next) {
+  res.header({ "Access-Control-Allow-Origin": "*" });
   Users.find({}).exec(function (err, list_users) {
     if (err) {
       return next(err);
