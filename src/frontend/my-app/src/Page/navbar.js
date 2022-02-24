@@ -37,7 +37,7 @@ function Navbar() {
   const get_weather = () => {
     axios.get('https://wttr.in/?format=3')
     .then(resp => {
-      console.log(resp.data);
+      // console.log(resp.data);
       const locwttr = resp.data;
       setWeather(locwttr);
       // return resp.data;
@@ -50,9 +50,9 @@ function Navbar() {
     <AppBar position="static">
       <CssBaseline />
       <Toolbar>
-        <Typography variant="h4" className={classes.logo}>
-          To-do app
-        </Typography >
+        <Typography variant="h5" className={classes.logo}>
+          To-do
+        </Typography>
           <div className={classes.navlinks}>
             <Link style={{ fontSize: 14 }} to="#" className={classes.link}>
               {repo}
@@ -61,7 +61,7 @@ function Navbar() {
               Home
             </Link>
             <Link to="/createtask" className={classes.link}>
-              Createtask
+              Create task
             </Link>
             <Link to="/tasklist" className={classes.link}>
               Task List
