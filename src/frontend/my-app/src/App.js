@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import { Navbar, Home, News, Tasklist, Createtask, About, Weather, Calendar } from './Page';
+import { Navbar, Home, News, Tasklist, Createtask, About, Weather, Calendar,Footer } from './Page';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -19,6 +19,7 @@ function App() {
           <Route path="/weather" element={<Weather />} />
         </Routes>
       </Router>
+      <Footer />
     </div>
   );
 }
