@@ -37,6 +37,7 @@ function News() {
         `https://newsapi.org/v2/everything?q=Apple&from=2022-02-21&sortBy=popularity&apiKey=${API_KEY}`
       )
       .then((res) => {
+        console.log(res.data.articles)
         setinfo(res.data.articles);
       })
       .catch((err) => {
@@ -48,6 +49,7 @@ function News() {
     if (info) {
       info.map((element) => {
         formateddata.push({
+          "src": element.url,
           "image": element.urlToImage,
           "title": element.title,
           "author": element.author,

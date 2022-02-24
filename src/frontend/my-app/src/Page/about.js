@@ -58,7 +58,7 @@ const styles = theme => ({
 });
 const cards = [
     {id: 1, name: 'Jesse Emerson ', imglink: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6NKmKAw-4Oi12wF9C3C7_ulrDH1D7kW_3zQ&usqp=CAU",description: 'Undergraduated Student Of PSU'},
-    {id: 2, name: 'Yixuan Feng', imglink: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6NKmKAw-4Oi12wF9C3C7_ulrDH1D7kW_3zQ&usqp=CAU", description: 'Graduated Student Of PSU.'},
+    {id: 2, name: 'Yixuan Feng', imglink: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png", description: 'Graduated Student Of PSU.'},
     {id: 3, name: 'Zhengmao Zhang', imglink: "https://0xchams.chameleoncollective.io/metadata/266.png",description: 'Graduated Student Of PSU.'}
   ];
 const techstack = [

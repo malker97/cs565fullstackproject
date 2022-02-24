@@ -4,6 +4,7 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import { useEffect, useState } from "react";
+import { Link } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,7 +31,6 @@ const useStyles = makeStyles((theme) => ({
 function News_card (props) {
   const classes = useStyles();
 
-  console.log(props);
 
     return(
         <Paper className={classes.paper}>
@@ -49,7 +49,9 @@ function News_card (props) {
             }>
               <Grid item xs>
                 <Typography gutterBottom variant="h6">
+                  <Link href={props.data.src}>
                   {props.data.title}
+                  </Link>
                 </Typography>
                 <Typography variant="body2" color="textSecondary">
                   {props.data.author}
