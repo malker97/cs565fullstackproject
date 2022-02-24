@@ -32,9 +32,9 @@ function Calendar() {
     return(
         <main>
         <div>
-            <Grid container spacing={40}>
+            <Grid container spacing={3}>
                 {cards.map(card => (
-                    <Grid item key={card} sm={4} md={4} lg={4}>
+                    <Grid item key={card} sm={5} md={5} lg={5}>
                         <Card >
                             <CardActionArea>
                             <CardMedia

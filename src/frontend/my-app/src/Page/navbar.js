@@ -54,7 +54,7 @@ function Navbar() {
           To-do app
         </Typography >
           <div className={classes.navlinks}>
-            <Link style={{ fontSize: 14 }} to="/weather" className={classes.link}>
+            <Link style={{ fontSize: 14 }} to="#" className={classes.link}>
               {repo}
             </Link>
             <Link to="/" className={classes.link}>
