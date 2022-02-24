@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { TextField, Button } from "@material-ui/core";
 import '../Style/home.css';
 import { makeStyles } from "@material-ui/core";
+import { createStore, action } from "easy-peasy";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
     margin: {
@@ -14,8 +16,36 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
+const store = createStore({
+  loggedIn: false,
+  login: action((state, newstatus) => {
+    state.loggedIn = newstatus;
+  }),
+});
+
 function Home() {
     const classes = useStyles();
+    const [userid, setuserid] = useState('');
+   
+    const get_info = () => {
+      axios
+        .get(
+          ``
+        )
+        .then((res) => {
+          console.log(res)
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+
+    useEffect(()=>{
+      if(userid!==''){
+        
+      }
+    },[userid])
+
 
     return (
         <div className="container">
@@ -25,9 +55,10 @@ function Home() {
                     label="Please enter your user id/task id"
                     aria-describedby="my-helper-text"
                     className="idinput"
+                    onChange={e => {setuserid(e.target.value); console.log(e.target.value);}}
                 />
                 <br/>
-                <Button className={classes.margin} variant="contained" color="primary">Submit</Button>
+                <Button className={classes.margin} variant="contained" color="primary" onClick={get_info()}>Submit</Button>
             </form>
         </div>
     )
