@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import News_card from "./news_card";
 import axios from "axios";
+import { useStoreState } from "easy-peasy";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,6 +27,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function News() {
+
+  const loggedIn = useStoreState((state) => state.loggedIn);
+  console.log(loggedIn);
+
   const classes = useStyles();
   const [info, setinfo] = useState([]);
   const API_KEY = "cc1aef5aebcd496e984b8d55cbe8a4de";

@@ -3,6 +3,7 @@ var async = require("async");
 const { body, validationResult } = require("express-validator");
 
 exports.users_list = function (req, res, next) {
+  res.header({ "Access-Control-Allow-Origin": "*" });
   Users.find({}).exec(function (err, list_users) {
     if (err) {
       return next(err);
@@ -12,6 +13,7 @@ exports.users_list = function (req, res, next) {
 };
 
 exports.user_detail = function (req, res, next) {
+  res.header({ "Access-Control-Allow-Origin": "*" });
   Users.findById(req.params.id).exec(function (err, detail_user) {
     if (err) {
       return next(err);
@@ -34,6 +36,7 @@ exports.user_create = [
 
   // Process request after validation and sanitization.
   (req, res, next) => {
+    res.header({ "Access-Control-Allow-Origin": "*" });
     // Extract the validation errors from a request.
     const errors = validationResult(req);
 
@@ -76,6 +79,7 @@ exports.user_create = [
 
 // Handle person delete on GET.
 exports.user_delete = function (req, res, next) {
+  res.header({ "Access-Control-Allow-Origin": "*" });
   Users.findById(req.params.id).exec(function (err, user) {
     if (err) {
       return next(err);
@@ -122,6 +126,7 @@ exports.user_update_post = [
 
   // Process request after validation and sanitization.
   (req, res, next) => {
+    res.header({ "Access-Control-Allow-Origin": "*" });
     // Extract the validation errors from a request.
     const errors = validationResult(req);
 
