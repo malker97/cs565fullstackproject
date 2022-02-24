@@ -21,17 +21,20 @@ const useStyles = makeStyles((theme) => ({
 function Home() {
   const classes = useStyles();
   const [userid, setuserid] = useState('');
-  const login = useStoreActions((actions) => actions.login);
+  const [ifnew, setifnew] = useState(false);
 
+  const login = useStoreActions((actions) => actions.login);
   const loggedIn = useStoreState((state) => state.loggedIn);
+  const setnewuser = useStoreActions((actions) => actions.setnewuser);
 
   const get_info = () => {
     axios
       .get(
-        ``
+        `localhost:3010/api/users`
       )
       .then((res) => {
-        console.log(res)
+        console.log(res);
+        setifnew()
       })
       .catch((err) => {
         console.log(err);
@@ -40,11 +43,11 @@ function Home() {
 
   useEffect(() => {
 
-    if (userid !== '') {
-      
+    if (userid !== '' && ifnew === true) {
+      setnewuser(true); 
     }
     console.log(loggedIn);
-  }, [userid])
+  }, [ifnew])
 
 
   return (
