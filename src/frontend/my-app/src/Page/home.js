@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { TextField, Button } from "@material-ui/core";
-import '../Style/home.css';
+import "../Style/home.css";
 import { makeStyles } from "@material-ui/core";
 import { createStore, action, useStoreActions, useStoreState } from "easy-peasy";
 import axios from "axios";
@@ -16,11 +16,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
-
 function Home() {
   const classes = useStyles();
-  const [userid, setuserid] = useState('');
+  const [userid, setuserid] = useState("");
   const [ifnew, setifnew] = useState(false);
 
   const login = useStoreActions((actions) => actions.login);
@@ -29,26 +27,22 @@ function Home() {
 
   const get_info = () => {
     axios
-      .get(
-        `localhost:3010/api/users`
-      )
+      .get(`/api/tasks`)
       .then((res) => {
-        console.log(res);
-        setifnew()
+        console.log("Response: ", res.data);
+        setifnew();
       })
       .catch((err) => {
-        console.log(err);
+        console.log("Error: ", err);
       });
   };
 
   useEffect(() => {
-
-    if (userid !== '' && ifnew === true) {
-      setnewuser(true); 
+    if (userid !== "" && ifnew === true) {
+      setnewuser(true);
     }
     console.log(loggedIn);
-  }, [ifnew])
-
+  }, [ifnew]);
 
   return (
     <div className="container">
@@ -58,13 +52,26 @@ function Home() {
           label="Please enter your user id/task id"
           aria-describedby="my-helper-text"
           className="idinput"
-          onChange={e => { setuserid(e.target.value); console.log(e.target.value); }}
+          onChange={(e) => {
+            setuserid(e.target.value);
+            console.log(e.target.value);
+          }}
         />
         <br />
-        <Button className={classes.margin} variant="contained" color="primary" onClick={e => {get_info(); login(true);}}>Submit</Button>
+        <Button
+          className={classes.margin}
+          variant="contained"
+          color="primary"
+          onClick={(e) => {
+            get_info();
+            login(true);
+          }}
+        >
+          Submit
+        </Button>
       </form>
     </div>
-  )
+  );
 }
 
 export default Home;

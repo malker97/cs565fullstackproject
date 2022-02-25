@@ -3,6 +3,7 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
+var cors = require("cors");
 
 require("dotenv").config();
 
@@ -12,6 +13,16 @@ var tasksRouter = require("./api/tasks");
 var newsRouter = require("./api/news");
 
 var app = express();
+
+app.use(cors());
+
+// add middlewares
+app.use(express.static(path.join(__dirname, "..", "build")));
+//app.use(express.static("public"));
+
+// app.use((req, res, next) => {
+//   res.sendFile(path.join(__dirname, "..", "build", "index.html"));
+// });
 
 //Set up mongoose connection
 var mongoose = require("mongoose");

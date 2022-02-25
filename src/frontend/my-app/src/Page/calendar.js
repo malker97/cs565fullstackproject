@@ -1,24 +1,22 @@
-import * as React from 'react';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import Grid from '@material-ui/core/Grid';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import purple from '@material-ui/core/colors/purple';
-import { Button, CardActionArea, CardActions } from '@mui/material';
-import red from '@material-ui/core/colors/red';
-
+import * as React from "react";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Typography from "@mui/material/Typography";
+import Grid from "@material-ui/core/Grid";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import purple from "@material-ui/core/colors/purple";
+import { Button, CardActionArea, CardActions } from "@mui/material";
+import red from "@material-ui/core/colors/red";
 
 // import React from "react";
 import Calendar from "@ericz1803/react-google-calendar";
-
-const API_KEY = "";
+const API_KEY = `${process.env.GCAL_API_KEY}`;
 let calendars = [
-  {calendarId: "zh-cn.usa#holiday@group.v.calendar.google.com"},
-  {calendarId: "09opmkrjova8h5k5k46fedmo88@group.calendar.google.com", color: "#B241D1"}, //add a color field to specify the color of a calendar
-  {calendarId: "hkr1dj9k6v6pa79gvpv03eapeg@group.calendar.google.com"}, //without a specified color, it defaults to blue (#4786ff)
-  {calendarId: "rg4m0k607609r2jmdr97sjvjus@group.calendar.google.com", color: "rgb(63, 191, 63)"}, //accepts hex and rgb strings (doesn't work with color names
+  { calendarId: "zh-cn.usa#holiday@group.v.calendar.google.com" },
+  { calendarId: "09opmkrjova8h5k5k46fedmo88@group.calendar.google.com", color: "#B241D1" }, //add a color field to specify the color of a calendar
+  { calendarId: "hkr1dj9k6v6pa79gvpv03eapeg@group.calendar.google.com" }, //without a specified color, it defaults to blue (#4786ff)
+  { calendarId: "rg4m0k607609r2jmdr97sjvjus@group.calendar.google.com", color: "rgb(63, 191, 63)" }, //accepts hex and rgb strings (doesn't work with color names
 ];
 
 class Example extends React.Component {
@@ -27,11 +25,9 @@ class Example extends React.Component {
       <div>
         <Calendar apiKey={API_KEY} calendars={calendars} />
       </div>
-    )
+    );
   }
 }
-
-
 
 // const cards = [
 //     {id: 1, startTime: '2022/03/09 0:00', endTime: '2022/03/11 0:00',location: 'Portland',description: 'Final Project Presentation', statu : "Down"},

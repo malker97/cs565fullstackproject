@@ -2,7 +2,7 @@ var Tasks = require("../models/tasks");
 const { body, validationResult } = require("express-validator");
 var async = require("async");
 
-exports.tasks_list = function (req, res) {
+exports.tasks_list = function (req, res, next) {
   res.header({ "Access-Control-Allow-Origin": "*" });
   Tasks.find({}).exec(function (err, tasks) {
     if (err) {
@@ -14,7 +14,7 @@ exports.tasks_list = function (req, res) {
 };
 
 // GET single task by ID:
-exports.task_detail = function (req, res) {
+exports.task_detail = function (req, res, next) {
   res.header({ "Access-Control-Allow-Origin": "*" });
   Tasks.findById(req.params.id).exec(function (err, task) {
     if (err) {
@@ -29,7 +29,7 @@ exports.task_detail = function (req, res) {
 };
 
 // GET all tasks for user by user ID:
-exports.user_tasks_list = function (req, res) {
+exports.user_tasks_list = function (req, res, next) {
   res.header({ "Access-Control-Allow-Origin": "*" });
   Tasks.find({ user_id: `${req.params.userID}` }).exec(function (err, tasks) {
     if (err) {
@@ -110,7 +110,7 @@ exports.task_create_post = [
   },
 ];
 
-exports.task_delete_get = function (req, res) {
+exports.task_delete_get = function (req, res, next) {
   res.header({ "Access-Control-Allow-Origin": "*" });
   Tasks.findById(req.params.id).exec(function (err, task) {
     if (err) {

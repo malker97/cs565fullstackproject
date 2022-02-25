@@ -105,7 +105,7 @@ exports.user_delete = function (req, res, next) {
 
 // Return JSON for person to update on GET.
 exports.user_update_get = function (req, res) {
-  Users.findById(req.params.id).exec(function (err, user) {
+  Users.findById(req.params.id).exec(function (err, user, next) {
     if (err) {
       return next(err);
     }
