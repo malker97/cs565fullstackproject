@@ -11,7 +11,8 @@ import red from "@material-ui/core/colors/red";
 
 // import React from "react";
 import Calendar from "@ericz1803/react-google-calendar";
-const API_KEY = `${process.env.GCAL_API_KEY}`;
+const API_KEY = `${process.env.REACT_APP_GCAL_API_KEY}`;
+
 let calendars = [
   { calendarId: "zh-cn.usa#holiday@group.v.calendar.google.com" },
   { calendarId: "09opmkrjova8h5k5k46fedmo88@group.calendar.google.com", color: "#B241D1" }, //add a color field to specify the color of a calendar
