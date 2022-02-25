@@ -19,10 +19,16 @@ app.use(cors());
 // add middlewares
 app.use(express.static(path.join(__dirname, "..", "build")));
 //app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, "public")));
 
-// app.use((req, res, next) => {
-//   res.sendFile(path.join(__dirname, "..", "build", "index.html"));
-// });
+app.use("/api/users", usersRouter);
+app.use("/api/about", aboutRouter);
+app.use("/api/tasks", tasksRouter);
+app.use("/api/news", newsRouter);
+
+app.use((req, res, next) => {
+  res.sendFile(path.join(__dirname, "..", "build", "index.html"));
+});
 
 //Set up mongoose connection
 var mongoose = require("mongoose");
@@ -41,12 +47,7 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
-
-app.use("/api/users", usersRouter);
-app.use("/api/about", aboutRouter);
-app.use("/api/tasks", tasksRouter);
-app.use("/api/news", newsRouter);
+//app.use(express.static(path.join(__dirname, "public")));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
