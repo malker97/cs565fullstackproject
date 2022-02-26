@@ -31,7 +31,7 @@ exports.task_detail = function (req, res, next) {
 // GET all tasks for user by user ID:
 exports.user_tasks_list = function (req, res, next) {
   res.header({ "Access-Control-Allow-Origin": "*" });
-  Tasks.find({ user_id: `${req.params.userID}` }).exec(function (err, tasks) {
+  Tasks.find({ user_id: `${req.params.user_id}` }).exec(function (err, tasks) {
     if (err) {
       return next(err);
     }
@@ -71,7 +71,7 @@ exports.task_create_post = [
       end_date: req.body.end_date,
       completed: req.body.completed,
       location: req.body.location,
-      user_id: req.body.userID,
+      user_id: req.body.user_id,
     });
 
     // TODO Not sure what this should look like yet:
@@ -104,7 +104,7 @@ exports.task_create_post = [
         }
         //successful - redirect to new book record.
         //res.redirect(task.url);
-        res.redirect(`/api/tasks/user/${req.body.userID}`);
+        res.redirect(`/api/tasks/user/${req.body.user_id}`);
       });
     }
   },
@@ -164,7 +164,7 @@ exports.task_update_post = [
       end_date: req.body.end_date,
       completed: req.body.completed,
       location: req.body.location,
-      user_id: req.body.userID,
+      user_id: req.body.user_id,
     });
 
     // TODO Not sure what this should look like yet:
