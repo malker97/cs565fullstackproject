@@ -1,52 +1,48 @@
 var Tasks = require("../models/tasks");
 const { body, validationResult } = require("express-validator");
-var async = require("async");
+//var async = require("async");
 
+// GET /api/tasks
 exports.tasks_list = function (req, res, next) {
   res.header({ "Access-Control-Allow-Origin": "*" });
   Tasks.find({}).exec(function (err, tasks) {
     if (err) {
       return next(err);
     }
-    console.log(tasks);
     res.json(tasks);
   });
 };
 
-// GET single task by ID:
+// FIXME If a user ID is passed here, func returns null instead of a 500.
+// Do we need to consider this?
+// GET /api/tasks/:id
 exports.task_detail = function (req, res, next) {
   res.header({ "Access-Control-Allow-Origin": "*" });
   Tasks.findById(req.params.id).exec(function (err, task) {
     if (err) {
       return next(err);
     }
-    if (task == null) {
-      // No results.
-      res.redirect("/api/tasks");
-    }
     res.json(task);
   });
 };
 
-// GET all tasks for user by user ID:
+// GET /api/tasks/user/:id
 exports.user_tasks_list = function (req, res, next) {
   res.header({ "Access-Control-Allow-Origin": "*" });
   Tasks.find({ user_id: `${req.params.user_id}` }).exec(function (err, tasks) {
     if (err) {
       return next(err);
     }
-    if (tasks == null) {
-      // No results.
-      res.redirect("/api/tasks");
-    }
     res.json(tasks);
   });
 };
 
+// GET /api/tasks/create
 // exports.task_create_get = function (req, res) {
 //   res.send("NOT IMPLEMENTED: Tasks create GET");
 // };
 
+// POST /api/tasks/create
 exports.task_create_post = [
   // Validate and sanitize fields.
   body("name", "Name must not be empty.").trim().isLength({ min: 1 }).escape(),
@@ -110,35 +106,40 @@ exports.task_create_post = [
   },
 ];
 
+// GET /api/tasks/delete/:id
 exports.task_delete_get = function (req, res, next) {
   res.header({ "Access-Control-Allow-Origin": "*" });
+  console.log(req.params.id);
   Tasks.findById(req.params.id).exec(function (err, task) {
     if (err) {
       return next(err);
     }
+    // FIXME Is this the best response if the task ID is not found?
     if (task == null) {
-      // No results.
-      res.redirect("/api/tasks");
+      res.sendStatus(404);
     }
-    // Delete object and redirect to the list of tasks.
+    // Delete object and respond with a 200 on success.
     Tasks.findByIdAndRemove(req.params.id, function (err) {
       if (err) {
         return next(err);
       }
     });
-    // Success - go to tasks list
-    res.redirect("/api/tasks");
+    // Success - respond as such
+    res.sendStatus(200);
   });
 };
 
+// POST /api/tasks/delete
 // exports.task_delete_post = function (req, res) {
 //   res.send("NOT IMPLEMENTED: Tasks delete POST");
 // };
 
+// GET /api/tasks/update
 // exports.task_update_get = function (req, res) {
 //   res.send("NOT IMPLEMENTED: Tasks update GET");
 // };
 
+// POST /api/tasks/update
 exports.task_update_post = [
   // Validate and sanitize fields.
   body("name", "Name must not be empty.").trim().isLength({ min: 1 }).escape(),

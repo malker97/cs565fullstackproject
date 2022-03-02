@@ -1,6 +1,6 @@
 var Users = require("../models/users");
-var async = require("async");
 const { body, validationResult } = require("express-validator");
+//var async = require("async");
 
 exports.users_list = function (req, res, next) {
   res.header({ "Access-Control-Allow-Origin": "*" });

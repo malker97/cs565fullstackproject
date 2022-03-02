@@ -12,7 +12,7 @@ router.get("/", tasks_controller.tasks_list);
 router.get("/:id", tasks_controller.task_detail);
 
 // GET /api/tasks/user/:id
-router.get("/user/:userID", tasks_controller.user_tasks_list);
+router.get("/user/:user_id", tasks_controller.user_tasks_list);
 
 // GET /api/tasks/create
 //router.get("/create", tasks_controller.task_create_get);
@@ -20,7 +20,7 @@ router.get("/user/:userID", tasks_controller.user_tasks_list);
 // POST /api/tasks/create
 router.post("/create", tasks_controller.task_create_post);
 
-// GET /api/tasks/delete
+// GET /api/tasks/delete/:id
 router.get("/delete/:id", tasks_controller.task_delete_get);
 
 // POST /api/tasks/delete
