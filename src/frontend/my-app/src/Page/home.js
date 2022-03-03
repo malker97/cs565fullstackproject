@@ -27,7 +27,7 @@ function Home() {
 
   const get_info = () => {
     axios
-      .get(`/api/tasks/users/62147376148f79aabeab4c45`)
+      .get(`/api/tasks/user/62147376148f79aabeab4c45`)
       .then((res) => {
         console.log("Response: ", res.data);
         setifnew();

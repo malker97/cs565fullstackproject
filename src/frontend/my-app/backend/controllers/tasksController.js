@@ -59,7 +59,7 @@ exports.task_create_post = [
     // Extract the validation errors from a request.
     const errors = validationResult(req);
 
-    // Create a Book object with escaped and trimmed data.
+    // Create a Task object with escaped and trimmed data.
     var task = new Tasks({
       name: req.body.name,
       comment: req.body.comment,
@@ -72,25 +72,8 @@ exports.task_create_post = [
 
     // TODO Not sure what this should look like yet:
     if (!errors.isEmpty()) {
-      // There are errors. Render form again with sanitized values/error messages.
-      // Get all authors and genres for form.
-      // async.parallel(
-      //   {
-      //     authors: function (callback) {
-      //       Author.find(callback);
-      //     },
-      //     genres: function (callback) {
-      //       Genre.find(callback);
-      //     },
-      //   },
-      //   function (err, results) {
-      //     if (err) {
-      //       return next(err);
-      //     }
-      //     res.render("book_form", { title: "Create Book", authors: results.authors, genres: results.genres, book: book, errors: errors.array() });
-      //   }
-      // );
-      // return;
+      // Return some error info:
+
       console.log("Error in task_create_post!");
     } else {
       // Data from form is valid. Save book.
@@ -98,9 +81,8 @@ exports.task_create_post = [
         if (err) {
           return next(err);
         }
-        //successful - redirect to new book record.
-        //res.redirect(task.url);
-        res.redirect(`/api/tasks/user/${req.body.user_id}`);
+        // Success -- return status:
+        res.status(200);
       });
     }
   },
@@ -170,25 +152,16 @@ exports.task_update_post = [
 
     // TODO Not sure what this should look like yet:
     if (!errors.isEmpty()) {
-      //   // There are errors. Render form again with sanitized values and error messages.
-      //   // FIXME
-      //   BookInstance.findById(req.params.id).exec(function (err, bookinstance) {
-      //     if (err) {
-      //       return next(err);
-      //     }
-      //     // Successful, so render.
-      //     res.render("bookinstance_form", { title: "Update BookInstance", book: book, bookinstance: bookinstance });
-      //     return;
-      //   });
+      // Return some error info:
+      console.log("There were errors in the request. Please try again.");
     } else {
       // Data from form is valid. Update the record.
-      Tasks.findByIdAndUpdate(req.params.id, task, {}, function (err, theTask) {
+      Tasks.findByIdAndUpdate(req.params.id, task, {}, function (err) {
         if (err) {
           return next(err);
         }
-        // Successful - redirect to new record.
-        //res.redirect(theTask.url);
-        res.redirect(`/api/tasks/${req.body.id}`);
+        // Successful - send status:
+        res.status(200);
       });
     }
   },
