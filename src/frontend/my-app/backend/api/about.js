@@ -1,9 +1,9 @@
 var express = require("express");
 var router = express.Router();
-
 var about_controller = require("../controllers/aboutController");
 
 // ABOUT ROUTES
+
 // /api/about GET
 router.get("/", about_controller.about_list);
 
@@ -22,4 +22,5 @@ router.get("/update/:id", about_controller.about_person_update_get);
 // /api/:id/update POST
 router.post("/update/:id", about_controller.about_person_update_post);
 
+// Export routes:
 module.exports = router;

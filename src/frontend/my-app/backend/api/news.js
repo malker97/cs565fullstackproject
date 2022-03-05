@@ -1,9 +1,9 @@
 var express = require("express");
 var router = express.Router();
-
 var news_controller = require("../controllers/newsController");
 
 // NEWS ROUTES //
+
 router.get("/", news_controller.news_list);
 
 router.get("/create", news_controller.news_create_get);
