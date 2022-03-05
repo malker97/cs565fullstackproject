@@ -2,8 +2,8 @@ const About = require("../models/about");
 //const async = require("async");
 const { body, validationResult } = require("express-validator");
 
-exports.about_list = function (req, res, next) {
-  About.find({}).exec(function (err, list_about) {
+exports.about_list = (req, res, next) => {
+  About.find({}).exec((err, list_about) => {
     if (err) {
       return next(err);
     }
@@ -11,8 +11,8 @@ exports.about_list = function (req, res, next) {
   });
 };
 
-exports.about_detail = function (req, res, next) {
-  About.findById(req.params.id).exec(function (err, detail_about) {
+exports.about_detail = (req, res, next) => {
+  About.findById(req.params.id).exec((err, detail_about) => {
     if (err) {
       return next(err);
     }
@@ -73,7 +73,7 @@ exports.about_person_create = [
 
 // Handle person delete on GET.
 exports.about_person_delete = function (req, res, next) {
-  About.findById(req.params.id).exec(function (err, person) {
+  About.findById(req.params.id).exec((err) => {
     if (err) {
       return next(err);
     }
@@ -91,8 +91,8 @@ exports.about_person_delete = function (req, res, next) {
 };
 
 // Return JSON for person to update on GET.
-exports.about_person_update_get = function (req, res) {
-  About.findById(req.params.id).exec(function (err, person, next) {
+exports.about_person_update_get = (req, res) => {
+  About.findById(req.params.id).exec((err, person, next) => {
     if (err) {
       return next(err);
     }
@@ -124,7 +124,7 @@ exports.about_person_update_post = [
 
     if (!errors.isEmpty()) {
       // There are errors to return.
-      About.findById(req.params.id).exec(function (err) {
+      About.findById(req.params.id).exec((err) => {
         if (err) {
           return next(err);
         }
@@ -132,7 +132,7 @@ exports.about_person_update_post = [
       });
     } else {
       // Data from form is valid. Update the record.
-      About.findByIdAndUpdate(req.params.id, person, {}, function (err) {
+      About.findByIdAndUpdate(req.params.id, person, {}, (err) => {
         if (err) {
           return next(err);
         }

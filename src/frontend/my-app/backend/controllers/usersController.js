@@ -2,9 +2,9 @@ const Users = require("../models/users");
 const { body, validationResult } = require("express-validator");
 //var async = require("async");
 
-exports.users_list = function (req, res, next) {
+exports.users_list = (req, res, next) => {
   res.header({ "Access-Control-Allow-Origin": "*" });
-  Users.find({}).exec(function (err, list_users) {
+  Users.find({}).exec((err, list_users) => {
     if (err) {
       return next(err);
     }
@@ -12,9 +12,9 @@ exports.users_list = function (req, res, next) {
   });
 };
 
-exports.user_detail = function (req, res, next) {
+exports.user_detail = (req, res, next) => {
   res.header({ "Access-Control-Allow-Origin": "*" });
-  Users.findById(req.params.id).exec(function (err, detail_user) {
+  Users.findById(req.params.id).exec((err, detail_user) => {
     if (err) {
       return next(err);
     }
@@ -52,7 +52,7 @@ exports.user_create = [
       // Right now I'm passing an array with the errors array.
       return errors.array();
     } else {
-      new_user.save(function (err) {
+      new_user.save((err) => {
         if (err) {
           return next(err);
         }
@@ -64,9 +64,9 @@ exports.user_create = [
 ];
 
 // Handle person delete on GET.
-exports.user_delete = function (req, res, next) {
+exports.user_delete = (req, res, next) => {
   res.header({ "Access-Control-Allow-Origin": "*" });
-  Users.findById(req.params.id).exec(function (err, user) {
+  Users.findById(req.params.id).exec((err, user) => {
     if (err) {
       return next(err);
     }
@@ -76,7 +76,7 @@ exports.user_delete = function (req, res, next) {
     }
 
     // Delete object and
-    Users.findByIdAndRemove(req.params.id, function (err) {
+    Users.findByIdAndRemove(req.params.id, (err) => {
       if (err) {
         return next(err);
       }
@@ -110,7 +110,7 @@ exports.user_update_post = [
     });
     if (!errors.isEmpty()) {
       // There are errors. Render form again with sanitized values and error messages.
-      Users.findById(req.params.id).exec(function (err, user) {
+      Users.findById(req.params.id).exec((err) => {
         if (err) {
           return next(err);
         }
@@ -118,7 +118,7 @@ exports.user_update_post = [
       });
     } else {
       // Data from form is valid. Update the record.
-      Users.findByIdAndUpdate(req.params.id, user, {}, function (err) {
+      Users.findByIdAndUpdate(req.params.id, user, {}, (err) => {
         if (err) {
           return next(err);
         }
