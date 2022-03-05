@@ -18,7 +18,7 @@ router.post("/create", users_controller.user_create);
 router.get("/delete/:id", users_controller.user_delete);
 
 // GET /api/users/update/:id
-router.get("/update/:id", users_controller.user_update_get);
+//router.get("/update/:id", users_controller.user_update_get);
 
 // POST /api/users/update/:id
 router.post("/update/:id", users_controller.user_update_post);

@@ -106,7 +106,7 @@ exports.task_delete_get = function (req, res, next) {
         return next(err);
       }
     });
-    // Success - respond as such
+    // Success - respond as such:
     res.sendStatus(200);
   });
 };
@@ -150,7 +150,7 @@ exports.task_update_post = [
       user_id: req.body.user_id,
     });
 
-    // TODO Not sure what this should look like yet:
+    // TODO Not sure what this should look like:
     if (!errors.isEmpty()) {
       // Return some error info:
       console.log("There were errors in the request. Please try again.");

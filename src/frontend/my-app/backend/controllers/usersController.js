@@ -19,9 +19,9 @@ exports.user_detail = function (req, res, next) {
       return next(err);
     }
     if (detail_user == null) {
-      var err = new Error("User not found");
-      err.status = 404;
-      return next(err);
+      const error = new Error("User not found");
+      error.status = 404;
+      return next(error);
     }
     res.json(detail_user);
   });
@@ -49,29 +49,15 @@ exports.user_create = [
 
     if (!errors.isEmpty()) {
       // FIXME Not sure what should happen here.
-      // Right now I'm passing an array with the new_user object and the errors array.
-      return [new_user, errors.array()];
+      // Right now I'm passing an array with the errors array.
+      return errors.array();
     } else {
-      // Data from form is valid. Check if person with same name already exists.
-      Users.findOne({ name: req.body.name }).exec(function (err, found_user) {
+      new_user.save(function (err) {
         if (err) {
           return next(err);
         }
-
-        if (found_user) {
-          // Person exists, redirect to person detail page.
-          res.redirect(found_user.url);
-        } else {
-          new_user.save(function (err) {
-            if (err) {
-              return next(err);
-            }
-            // Person saved. Redirect to person detail page.
-            //res.redirect(new_user.url);
-            // FOR TESTING:
-            res.redirect(`/api/users/${req.params.id}`);
-          });
-        }
+        // Person saved. Respond with success:
+        res.status(200);
       });
     }
   },
@@ -86,36 +72,25 @@ exports.user_delete = function (req, res, next) {
     }
     if (user == null) {
       console.log(err);
-      res.redirect("/users");
+      res.status(404);
     }
 
-    // Delete object and redirect to the users page:
-    Users.findByIdAndRemove(req.params.id, function deletePerson(err) {
+    // Delete object and
+    Users.findByIdAndRemove(req.params.id, function (err) {
       if (err) {
         return next(err);
       }
     });
 
-    // Success - go to the users page:
-    //res.redirect("/users");
-    // FOR TESTING:
-    res.redirect("/api/users");
+    // Success -- respond as such
+    res.status(200);
   });
 };
 
-// Return JSON for person to update on GET.
-exports.user_update_get = function (req, res) {
-  Users.findById(req.params.id).exec(function (err, user, next) {
-    if (err) {
-      return next(err);
-    }
-    if (user == null) {
-      res.redirect("/users");
-    }
-    // Successful, so return data:
-    return res.json(user);
-  });
-};
+// // Return JSON for person to update on GET.
+// exports.user_update_get = function (req, res) {
+//   res.send("NOT IMPLEMENTED: Person update GET");
+// };
 
 // Handle person update on POST.
 exports.user_update_post = [
@@ -143,25 +118,16 @@ exports.user_update_post = [
         if (err) {
           return next(err);
         }
-        // TODO Not sure how to handle this. I think front end will re-render form?
-        // Successful, so render.
-        //res.render("genre_form", { title: "Update Genre", genre: genre });
-        //return;
-
-        // FIXME Not sure what should happen.
-        // Right now I'm passing an array with the new_user object and the errors array.
-        return [user, errors.array()];
+        return errors.array();
       });
     } else {
       // Data from form is valid. Update the record.
-      Users.findByIdAndUpdate(req.params.id, user, {}, function (err, theUser) {
+      Users.findByIdAndUpdate(req.params.id, user, {}, function (err) {
         if (err) {
           return next(err);
         }
-        // Successful - redirect to new record.
-        //res.redirect(theperson.url);
-        // FOR TESTING:
-        res.redirect(`/api/${theUser.url}`);
+        // Successful - respond as such:
+        res.status(200);
       });
     }
   },
