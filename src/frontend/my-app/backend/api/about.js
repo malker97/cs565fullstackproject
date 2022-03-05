@@ -1,6 +1,6 @@
-var express = require("express");
-var router = express.Router();
-var about_controller = require("../controllers/aboutController");
+const express = require("express");
+const router = express.Router();
+const about_controller = require("../controllers/aboutController");
 
 // ABOUT ROUTES
 
