@@ -1,4 +1,4 @@
-var Tasks = require("../models/tasks");
+const Tasks = require("../models/tasks");
 const { body, validationResult } = require("express-validator");
 //var async = require("async");
 
@@ -60,7 +60,7 @@ exports.task_create_post = [
     const errors = validationResult(req);
 
     // Create a Task object with escaped and trimmed data.
-    var task = new Tasks({
+    const task = new Tasks({
       name: req.body.name,
       comment: req.body.comment,
       start_date: req.body.start_date,
@@ -111,16 +111,6 @@ exports.task_delete_get = function (req, res, next) {
   });
 };
 
-// POST /api/tasks/delete
-// exports.task_delete_post = function (req, res) {
-//   res.send("NOT IMPLEMENTED: Tasks delete POST");
-// };
-
-// GET /api/tasks/update
-// exports.task_update_get = function (req, res) {
-//   res.send("NOT IMPLEMENTED: Tasks update GET");
-// };
-
 // POST /api/tasks/update
 exports.task_update_post = [
   // Validate and sanitize fields.
@@ -139,7 +129,7 @@ exports.task_update_post = [
     const errors = validationResult(req);
 
     // Create a Book object with escaped and trimmed data.
-    var task = new Tasks({
+    const task = new Tasks({
       _id: req.body.id,
       name: req.body.name,
       comment: req.body.comment,

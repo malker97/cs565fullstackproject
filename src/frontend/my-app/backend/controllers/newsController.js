@@ -1,19 +1,13 @@
-var News = require("../models/news");
-var async = require("async");
+const News = require("../models/news");
+//const async = require("async");
 
-var async = require("async");
-
-// exports.index = function (req, res) {
-//   res.send("NOT IMPLEMENTED: News list");
-// };
-
+// GET /api/news
 exports.news_list = function (req, res) {
-  News.find({}).exec(function (err, list_news) {
+  News.find({}).exec(function (err, list_news, next) {
     if (err) {
       return next(err);
     }
-    //Successful, so render
-    //res.render("news_list", { title: "News List", news_list: list_news });
+    //Successful, return data:
     res.json(list_news);
   });
 };

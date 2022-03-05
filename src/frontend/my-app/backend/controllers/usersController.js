@@ -1,4 +1,4 @@
-var Users = require("../models/users");
+const Users = require("../models/users");
 const { body, validationResult } = require("express-validator");
 //var async = require("async");
 
@@ -41,7 +41,7 @@ exports.user_create = [
     const errors = validationResult(req);
 
     // Create a users object with escaped and trimmed data.
-    var new_user = new Users({
+    const new_user = new Users({
       name: req.body.name,
       description: req.body.name,
       //image: req.body.image,
@@ -87,11 +87,6 @@ exports.user_delete = function (req, res, next) {
   });
 };
 
-// // Return JSON for person to update on GET.
-// exports.user_update_get = function (req, res) {
-//   res.send("NOT IMPLEMENTED: Person update GET");
-// };
-
 // Handle person update on POST.
 exports.user_update_post = [
   // Validate and sanitize the name field.
@@ -102,11 +97,12 @@ exports.user_update_post = [
   // Process request after validation and sanitization.
   (req, res, next) => {
     res.header({ "Access-Control-Allow-Origin": "*" });
+
     // Extract the validation errors from a request.
     const errors = validationResult(req);
 
     // Create a genre object with escaped and trimmed data.
-    var user = new Users({
+    const user = new Users({
       name: req.body.name,
       description: req.body.description,
       image: req.body.image,
