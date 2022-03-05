@@ -1,9 +1,9 @@
-var About = require("../models/about");
-var async = require("async");
+const About = require("../models/about");
+//const async = require("async");
 const { body, validationResult } = require("express-validator");
 
-exports.about_list = function (req, res, next) {
-  About.find({}).exec(function (err, list_about) {
+exports.about_list = (req, res, next) => {
+  About.find({}).exec((err, list_about) => {
     if (err) {
       return next(err);
     }
@@ -11,13 +11,13 @@ exports.about_list = function (req, res, next) {
   });
 };
 
-exports.about_detail = function (req, res, next) {
-  About.findById(req.params.id).exec(function (err, detail_about) {
+exports.about_detail = (req, res, next) => {
+  About.findById(req.params.id).exec((err, detail_about) => {
     if (err) {
       return next(err);
     }
     if (detail_about == null) {
-      var err = new Error("Person not found");
+      const err = new Error("Person not found");
       err.status = 404;
       return next(err);
     }
@@ -38,7 +38,7 @@ exports.about_person_create = [
     const errors = validationResult(req);
 
     // Create a genre object with escaped and trimmed data.
-    var new_person = new About({
+    const new_person = new About({
       name: req.body.name,
       description: req.body.name,
       //image: req.body.image,
@@ -54,7 +54,6 @@ exports.about_person_create = [
         if (err) {
           return next(err);
         }
-
         if (found_person) {
           // Person exists, redirect to person detail page.
           res.redirect(found_person.url);
@@ -64,9 +63,7 @@ exports.about_person_create = [
               return next(err);
             }
             // Person saved. Redirect to person detail page.
-            //res.redirect(new_person.url);
-            // FOR TESTING:
-            res.redirect(`/api/about/${req.params.id}`);
+            res.status(200);
           });
         }
       });
@@ -76,13 +73,9 @@ exports.about_person_create = [
 
 // Handle person delete on GET.
 exports.about_person_delete = function (req, res, next) {
-  About.findById(req.params.id).exec(function (err, person) {
+  About.findById(req.params.id).exec((err) => {
     if (err) {
       return next(err);
-    }
-    if (person == null) {
-      console.log(err);
-      res.redirect("/about");
     }
 
     // Delete object and redirect to the about page:
@@ -93,21 +86,17 @@ exports.about_person_delete = function (req, res, next) {
     });
 
     // Success - go to the about page:
-    //res.redirect("/about");
-    // FOR TESTING:
-    res.redirect("/api/about");
+    res.status(200);
   });
 };
 
 // Return JSON for person to update on GET.
-exports.about_person_update_get = function (req, res) {
-  About.findById(req.params.id).exec(function (err, person) {
+exports.about_person_update_get = (req, res) => {
+  About.findById(req.params.id).exec((err, person, next) => {
     if (err) {
       return next(err);
     }
-    if (person == null) {
-      res.redirect("/about");
-    }
+
     // Successful, so return data:
     return res.json(person);
   });
@@ -126,37 +115,29 @@ exports.about_person_update_post = [
     const errors = validationResult(req);
 
     // Create a genre object with escaped and trimmed data.
-    var person = new About({
+    const person = new About({
       name: req.body.name,
       description: req.body.description,
       image: req.body.image,
       _id: req.params.id,
     });
+
     if (!errors.isEmpty()) {
-      // There are errors. Render form again with sanitized values and error messages.
-      About.findById(req.params.id).exec(function (err, person) {
+      // There are errors to return.
+      About.findById(req.params.id).exec((err) => {
         if (err) {
           return next(err);
         }
-        // TODO Not sure how to handle this. I think front end will re-render form?
-        // Successful, so render.
-        //res.render("genre_form", { title: "Update Genre", genre: genre });
-        //return;
-
-        // FIXME Not sure what should happen.
-        // Right now I'm passing an array with the new_person object and the errors array.
-        return [person, errors.array()];
+        return errors.array();
       });
     } else {
       // Data from form is valid. Update the record.
-      About.findByIdAndUpdate(req.params.id, person, {}, function (err, theperson) {
+      About.findByIdAndUpdate(req.params.id, person, {}, (err) => {
         if (err) {
           return next(err);
         }
-        // Successful - redirect to new record.
-        //res.redirect(theperson.url);
-        // FOR TESTING:
-        res.redirect(`/api/${theperson.url}`);
+        // Successful - respond as such:
+        res.status(200);
       });
     }
   },

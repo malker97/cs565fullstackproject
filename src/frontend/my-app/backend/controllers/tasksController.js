@@ -1,11 +1,11 @@
-var Tasks = require("../models/tasks");
+const Tasks = require("../models/tasks");
 const { body, validationResult } = require("express-validator");
 //var async = require("async");
 
 // GET /api/tasks
-exports.tasks_list = function (req, res, next) {
+exports.tasks_list = (req, res, next) => {
   res.header({ "Access-Control-Allow-Origin": "*" });
-  Tasks.find({}).exec(function (err, tasks) {
+  Tasks.find({}).exec((err, tasks) => {
     if (err) {
       return next(err);
     }
@@ -16,9 +16,9 @@ exports.tasks_list = function (req, res, next) {
 // FIXME If a user ID is passed here, func returns null instead of a 500.
 // Do we need to consider this?
 // GET /api/tasks/:id
-exports.task_detail = function (req, res, next) {
+exports.task_detail = (req, res, next) => {
   res.header({ "Access-Control-Allow-Origin": "*" });
-  Tasks.findById(req.params.id).exec(function (err, task) {
+  Tasks.findById(req.params.id).exec((err, task) => {
     if (err) {
       return next(err);
     }
@@ -27,9 +27,9 @@ exports.task_detail = function (req, res, next) {
 };
 
 // GET /api/tasks/user/:id
-exports.user_tasks_list = function (req, res, next) {
+exports.user_tasks_list = (req, res, next) => {
   res.header({ "Access-Control-Allow-Origin": "*" });
-  Tasks.find({ user_id: `${req.params.user_id}` }).exec(function (err, tasks) {
+  Tasks.find({ user_id: `${req.params.user_id}` }).exec((err, tasks) => {
     if (err) {
       return next(err);
     }
@@ -60,7 +60,7 @@ exports.task_create_post = [
     const errors = validationResult(req);
 
     // Create a Task object with escaped and trimmed data.
-    var task = new Tasks({
+    const task = new Tasks({
       name: req.body.name,
       comment: req.body.comment,
       start_date: req.body.start_date,
@@ -77,7 +77,7 @@ exports.task_create_post = [
       console.log("Error in task_create_post!");
     } else {
       // Data from form is valid. Save book.
-      task.save(function (err) {
+      task.save((err) => {
         if (err) {
           return next(err);
         }
@@ -89,10 +89,10 @@ exports.task_create_post = [
 ];
 
 // GET /api/tasks/delete/:id
-exports.task_delete_get = function (req, res, next) {
+exports.task_delete_get = (req, res, next) => {
   res.header({ "Access-Control-Allow-Origin": "*" });
   console.log(req.params.id);
-  Tasks.findById(req.params.id).exec(function (err, task) {
+  Tasks.findById(req.params.id).exec((err, task) => {
     if (err) {
       return next(err);
     }
@@ -101,7 +101,7 @@ exports.task_delete_get = function (req, res, next) {
       res.sendStatus(404);
     }
     // Delete object and respond with a 200 on success.
-    Tasks.findByIdAndRemove(req.params.id, function (err) {
+    Tasks.findByIdAndRemove(req.params.id, (err) => {
       if (err) {
         return next(err);
       }
@@ -110,16 +110,6 @@ exports.task_delete_get = function (req, res, next) {
     res.sendStatus(200);
   });
 };
-
-// POST /api/tasks/delete
-// exports.task_delete_post = function (req, res) {
-//   res.send("NOT IMPLEMENTED: Tasks delete POST");
-// };
-
-// GET /api/tasks/update
-// exports.task_update_get = function (req, res) {
-//   res.send("NOT IMPLEMENTED: Tasks update GET");
-// };
 
 // POST /api/tasks/update
 exports.task_update_post = [
@@ -139,7 +129,7 @@ exports.task_update_post = [
     const errors = validationResult(req);
 
     // Create a Book object with escaped and trimmed data.
-    var task = new Tasks({
+    const task = new Tasks({
       _id: req.body.id,
       name: req.body.name,
       comment: req.body.comment,
@@ -156,7 +146,7 @@ exports.task_update_post = [
       console.log("There were errors in the request. Please try again.");
     } else {
       // Data from form is valid. Update the record.
-      Tasks.findByIdAndUpdate(req.params.id, task, {}, function (err) {
+      Tasks.findByIdAndUpdate(req.params.id, task, {}, (err) => {
         if (err) {
           return next(err);
         }

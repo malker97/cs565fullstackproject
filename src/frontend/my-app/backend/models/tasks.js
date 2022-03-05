@@ -1,7 +1,7 @@
-var mongoose = require("mongoose");
-var Schema = mongoose.Schema;
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
-var TasksSchema = new Schema({
+const TasksSchema = new Schema({
   name: { type: String, required: true },
   comment: { type: String },
   start_time: { type: Date },

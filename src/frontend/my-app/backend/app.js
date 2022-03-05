@@ -1,22 +1,22 @@
-var createError = require("http-errors");
-var express = require("express");
-var path = require("path");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
-var cors = require("cors");
+const createError = require("http-errors");
+const express = require("express");
+const path = require("path");
+const cookieParser = require("cookie-parser");
+const logger = require("morgan");
+const cors = require("cors");
 
 require("dotenv").config();
 
-var aboutRouter = require("./api/about");
-var usersRouter = require("./api/users");
-var tasksRouter = require("./api/tasks");
-var newsRouter = require("./api/news");
+const aboutRouter = require("./api/about");
+const usersRouter = require("./api/users");
+const tasksRouter = require("./api/tasks");
+const newsRouter = require("./api/news");
 
-var app = express();
+const app = express();
 
 app.use(cors());
 
-// add middlewares
+// Add middleware:
 app.use(express.static(path.join(__dirname, "..", "build")));
 //app.use(express.static("public"));
 app.use(express.static(path.join(__dirname, "public")));
@@ -31,23 +31,20 @@ app.use((req, res, next) => {
 });
 
 //Set up mongoose connection
-var mongoose = require("mongoose");
+const mongoose = require("mongoose");
+
 // MONGOOSE DEBUGGER:
 //mongoose.set("debug", true);
-var mongoDB = `mongodb+srv://${process.env.DBUSERNAME}:${process.env.DBPASSWORD}@cluster0.wcoet.mongodb.net/todo?retryWrites=true&w=majority`;
-mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
-var db = mongoose.connection;
-db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
-// view engine setup
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "jade");
+const mongoDB = `mongodb+srv://${process.env.DBUSERNAME}:${process.env.DBPASSWORD}@cluster0.wcoet.mongodb.net/todo?retryWrites=true&w=majority`;
+mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-//app.use(express.static(path.join(__dirname, "public")));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
