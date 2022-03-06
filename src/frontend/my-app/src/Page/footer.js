@@ -7,6 +7,7 @@ import Link from '@mui/material/Link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTwitter, faDiscord, faWeibo } from '@fortawesome/free-brands-svg-icons';
 import Grid from '@mui/material/Grid';
+
 function Footer() {
     return (
         <Box
