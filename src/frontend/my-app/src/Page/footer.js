@@ -28,7 +28,7 @@ function Footer() {
       >
         <Container maxWidth="sm">
           <Typography variant="body1">
-            Here is the footer, if I have time I will add new social media icon to here
+            Welcome to use our app, hope this could make your day easier!
           </Typography>
           {/* <Copyright /> */}
         </Container>
