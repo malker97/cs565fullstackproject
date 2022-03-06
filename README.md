@@ -5,7 +5,9 @@ Our app will manage user's task information by getting task information from use
 
 ### How to run our app?
 cd into `src/frontend/my-app`
+
 Create a `.env` file in my-app dictionary, and put `REACT_APP_GCAL_API_KEY=REPLACE_THIS_WITH_YOUR_OWN_GOOGLE_API_KEY` in it.
+
 Create a `.env` file in my-app/backend dictionary, and put
 ```
 DBUSERNAME=todo
@@ -14,6 +16,7 @@ DBPASSWORD=
 in it.
 
 `npm install` to install all the libaray/package that will be need for this project
+
 `npm start` to run this app
 
 ### What is a user id I could use to test?
