@@ -23,11 +23,19 @@ TasksSchema.virtual("url").get(function () {
 });
 
 TasksSchema.virtual("start_date_formatted").get(function () {
-  return DateTime.fromJSDate(this.start_time).toLocaleString(DateTime.DATE_MED);
+  //return DateTime.fromJSDate(this.start_time).toLocaleString(DateTime.DATE_MED);
+  return DateTime.fromJSDate(this.start_time).toLocaleString("en", {
+    dateStyle: "medium",
+    timeStyle: "short",
+  });
 });
 
 TasksSchema.virtual("end_date_formatted").get(function () {
-  return DateTime.fromJSDate(this.end_time).toLocaleString(DateTime.DATE_MED);
+  //return DateTime.fromJSDate(this.end_time).toLocaleString(DateTime.DATE_MED);
+  return DateTime.fromJSDate(this.end_time).toLocaleString("en", {
+    dateStyle: "medium",
+    timeStyle: "short",
+  });
 });
 
 //Export model
