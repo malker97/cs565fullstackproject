@@ -8,9 +8,7 @@ import { createStore, action, useStoreActions } from "easy-peasy";
 function App() {
 
   const loggedIn = useStoreState((state) => state.loggedIn);
-  console.log(loggedIn);
   const newUser = useStoreState((state) => state.newuser);
-  console.log(newUser);
 
 
   return (

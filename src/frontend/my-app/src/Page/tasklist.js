@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { DataGrid } from '@mui/x-data-grid';
+import axios from 'axios';
+import { createStore, action, useStoreActions, useStoreState } from "easy-peasy";
+
 const columns = [
-  { field: 'id', 
-  headerName: 'EventID', 
-  width: 90 },
+  {
+    field: 'id',
+    headerName: 'Event ID',
+    width: 90
+  },
   {
     field: 'starttime',
     headerName: 'Start Time',
@@ -42,18 +47,58 @@ const rows = [
   { id: 6, starttime: '2022/03/09 0:00', endtime: '2022/03/09 0:00', location: 'Portland', description: 'Final Project Presentation' },
   { id: 7, starttime: '2022/03/09 0:00', endtime: '2022/03/09 0:00', location: 'Portland', description: 'Final Project Presentation' },
 ];
-function Tasklist() {
 
-  return (
-    <div style={{ height: 400, width: '100%' }}>
+function Tasklist() {
+  const [info, setinfo] = useState([]);
+  const formateddata = [];
+
+  const userid = useStoreState((state) => state.userid);
+
+  const get_task = () => {
+    axios
+      .get(
+        `/api/tasks/user/${userid}`
+      )
+      .then((res) => {
+        console.log(res.data)
+        setinfo(res.data)
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const getformat = () => {
+    if (info) {
+      info.map((element) => {
+        formateddata.push({
+          "id": element._id,
+          "starttime": element.start_time,
+          "endtime": element.end_time,
+          "location": element.location,
+          "description": element.comment
+        });
+      });
+    }
+    return (
       <DataGrid
-        rows={rows}
+        rows={formateddata}
         columns={columns}
         pageSize={5}
         rowsPerPageOptions={[5]}
         checkboxSelection
         disableSelectionOnClick
       />
+    )
+  }
+
+  useEffect(() => {
+    get_task();
+  }, [])
+
+  return (
+    <div style={{ height: 400, width: '100%' }}>
+      {getformat()}
     </div>
   );
 }

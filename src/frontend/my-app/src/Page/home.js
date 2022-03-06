@@ -24,18 +24,7 @@ function Home() {
   const login = useStoreActions((actions) => actions.login);
   const loggedIn = useStoreState((state) => state.loggedIn);
   const setnewuser = useStoreActions((actions) => actions.setnewuser);
-
-  const get_info = () => {
-    axios
-      .get(`/api/tasks/user/62147376148f79aabeab4c45`)
-      .then((res) => {
-        console.log("Response: ", res.data);
-        setifnew();
-      })
-      .catch((err) => {
-        console.log("Error: ", err);
-      });
-  };
+  const setid = useStoreActions((actions) => actions.setid);
 
   useEffect(() => {
     if (userid !== "" && ifnew === true) {
@@ -63,8 +52,8 @@ function Home() {
           variant="contained"
           color="primary"
           onClick={(e) => {
-            get_info();
             login(true);
+            setid(userid);
           }}
         >
           Submit
