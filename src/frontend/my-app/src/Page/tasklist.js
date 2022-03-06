@@ -7,25 +7,30 @@ const columns = [
   {
     field: 'id',
     headerName: 'Event ID',
-    width: 90
+    width: 100
+  },
+  {
+    field: 'name',
+    headerName: 'Event Name',
+    width: 180
   },
   {
     field: 'starttime',
     headerName: 'Start Time',
-    width: 150,
+    width: 200,
     editable: true,
   },
   {
     field: 'endtime',
     headerName: 'End Time',
-    width: 150,
+    width: 200,
     editable: true,
   },
   {
     field: 'location',
     headerName: 'Location',
     type: 'text',
-    width: 110,
+    width: 120,
     editable: true,
   },
   {
@@ -34,7 +39,7 @@ const columns = [
     // description: 'This column has a value getter and is not sortable.',
     type: 'text',
     sortable: false,
-    width: 240,
+    width: 400,
   },
 ];
 
@@ -73,6 +78,7 @@ function Tasklist() {
       info.map((element) => {
         formateddata.push({
           "id": element._id,
+          "name": element.name,
           "starttime": element.start_time,
           "endtime": element.end_time,
           "location": element.location,

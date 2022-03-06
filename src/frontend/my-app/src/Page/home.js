@@ -26,7 +26,22 @@ function Home() {
   const setnewuser = useStoreActions((actions) => actions.setnewuser);
   const setid = useStoreActions((actions) => actions.setid);
 
+  const get_task = () => {
+    axios
+      .get(
+        `/api/tasks/user/62147376148f79aabeab4c45`
+      )
+      .then((res) => {
+        console.log(res.data)
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+
   useEffect(() => {
+    get_task();
     if (userid !== "" && ifnew === true) {
       setnewuser(true);
     }

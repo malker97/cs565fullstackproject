@@ -39,7 +39,7 @@ function News_card (props) {
             <ButtonBase className={classes.image}>
               <img
                 className={classes.img}
-                alt="complex"
+                alt={props.data.title}
                 src= {props.data.image}
               />
             </ButtonBase>
