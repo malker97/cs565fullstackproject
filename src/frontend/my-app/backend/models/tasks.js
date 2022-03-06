@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const { DateTime } = require("luxon");
 
 const TasksSchema = new Schema({
   name: { type: String, required: true },
@@ -14,6 +15,10 @@ const TasksSchema = new Schema({
 // Virtual for task's URL
 TasksSchema.virtual("url").get(function () {
   return "/task/" + this._id;
+});
+
+TasksSchema.virtual("date_formatted").get(function () {
+  return DateTime.fromJSDate(this.due_back).toLocaleString(DateTime.DATE_MED);
 });
 
 //Export model
