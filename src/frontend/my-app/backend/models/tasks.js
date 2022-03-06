@@ -22,8 +22,12 @@ TasksSchema.virtual("url").get(function () {
   return "/task/" + this._id;
 });
 
-TasksSchema.virtual("date_formatted").get(function () {
-  return DateTime.fromJSDate(this.due_back).toLocaleString(DateTime.DATE_MED);
+TasksSchema.virtual("start_date_formatted").get(function () {
+  return DateTime.fromJSDate(this.start_time).toLocaleString(DateTime.DATE_MED);
+});
+
+TasksSchema.virtual("end_date_formatted").get(function () {
+  return DateTime.fromJSDate(this.end_time).toLocaleString(DateTime.DATE_MED);
 });
 
 //Export model
