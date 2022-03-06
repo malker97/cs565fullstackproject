@@ -12,9 +12,13 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { DateTimePicker } from "@material-ui/pickers";
 import { useEffect, useState } from "react";
+import { createStore, action, useStoreActions, useStoreState } from "easy-peasy";
 const theme = createTheme();
 
 export default function SignUp() {
+
+  const userid = useStoreState((state) => state.userid);
+
   const handleSubmit = (event) => {
   };
   const [selectedDate, handleDateChange] = useState(new Date());

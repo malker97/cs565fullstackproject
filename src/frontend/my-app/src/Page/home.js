@@ -24,20 +24,24 @@ function Home() {
   const login = useStoreActions((actions) => actions.login);
   const loggedIn = useStoreState((state) => state.loggedIn);
   const setnewuser = useStoreActions((actions) => actions.setnewuser);
+  const setid = useStoreActions((actions) => actions.setid);
 
-  const get_info = () => {
+  const get_task = () => {
     axios
-      .get(`/api/tasks/user/62147376148f79aabeab4c45`)
+      .get(
+        `/api/tasks/user/62147376148f79aabeab4c45`
+      )
       .then((res) => {
-        console.log("Response: ", res.data);
-        setifnew();
+        console.log(res.data)
       })
       .catch((err) => {
-        console.log("Error: ", err);
+        console.log(err);
       });
   };
 
+
   useEffect(() => {
+    get_task();
     if (userid !== "" && ifnew === true) {
       setnewuser(true);
     }
@@ -63,8 +67,8 @@ function Home() {
           variant="contained"
           color="primary"
           onClick={(e) => {
-            get_info();
             login(true);
+            setid(userid);
           }}
         >
           Submit
