@@ -4,7 +4,9 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTwitter, faDiscord, faWeibo } from '@fortawesome/free-brands-svg-icons';
+import Grid from '@mui/material/Grid';
 function Footer() {
     return (
         <Box
@@ -26,12 +28,37 @@ function Footer() {
               : theme.palette.grey[800],
         }}
       >
-        <Container maxWidth="sm">
-          <Typography variant="body1">
-            Here is the footer, if I have time I will add new social media icon to here
-          </Typography>
-          {/* <Copyright /> */}
-        </Container>
+        {/* <Container maxWidth="sm"> */}
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <Typography variant="body1" align='center'>
+              Here is the footer, if I have time I will add new social media icon to here
+            </Typography>
+          </Grid>
+          <Grid item xs={10}>
+          </Grid>
+          <Grid item xs={2}>
+            <FontAwesomeIcon style={{
+                height: '48px',
+                width: '48px',
+            }} 
+            icon={faDiscord} 
+            color="#7289DA"/>
+            <FontAwesomeIcon style={{
+              height: '48px',
+              width: '48px',
+            }}
+          icon={faTwitter} 
+          color="#1DA1F2"
+          />
+            <FontAwesomeIcon style={{
+              height: '48px',
+              width: '48px',
+            }}
+            icon={faWeibo}
+            color="#DF2029"/>
+          </Grid>
+        </Grid>
       </Box>
       </Box>
     );

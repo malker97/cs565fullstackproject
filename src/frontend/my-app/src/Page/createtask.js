@@ -16,6 +16,7 @@ const theme = createTheme();
 
 export default function SignUp() {
   const handleSubmit = (event) => {
+    
   };
   const [selectedDate, handleDateChange] = useState(new Date());
   return (
