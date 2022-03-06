@@ -47,7 +47,7 @@ function Navbar() {
     get_weather();
   }, []);
   return (
-    <AppBar position="static">
+    <AppBar position="static" style={{backgroundColor: '#0066cc'}}>
       <CssBaseline />
       <Toolbar>
         <Typography variant="h5" className={classes.logo}>

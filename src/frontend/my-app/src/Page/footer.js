@@ -15,8 +15,10 @@ function Footer() {
           flexDirection: 'column',
           minHeight: '50vh',
         }}
+        // style={{backgroundColor: '	#ffcc00',}}
       >
       <Box
+        style={{backgroundColor: '	#ffcc00',}}
         component="footer"
         sx={{
           py: 3,
