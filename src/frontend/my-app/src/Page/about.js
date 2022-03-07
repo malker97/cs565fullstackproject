@@ -8,6 +8,8 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTwitter, faWeibo, faWeixin, faGithub } from '@fortawesome/free-brands-svg-icons';
 
 const styles = theme => ({
   appBar: {
@@ -66,8 +68,11 @@ const techstack = [
     {id: 2, name: 'Express.js', imglink: "https://miro.medium.com/max/1400/0*bmq42b-t3O56QKNM.jpg",description: 'Back End Framework'},
     {id: 3, name: 'Material UI', imglink: "https://mui.com/static/logo.png",description: 'Open Sources FE package'},
     {id: 4, name: 'React-Bootstrap', imglink: "https://miro.medium.com/max/1400/1*5Jv5YAGqu3zL5endb8dtBA.png",description: 'Open Sources FE package'},
-    {id: 5, name: 'Material UI', imglink: "https://sites.google.com/a/editorblogger.com/diplomado-implementacion-de-aulas-virtuales/_/rsrc/1472474322323/home/Google-Calendar-icon.png",description: 'Open Sources FE package'},
+    {id: 5, name: 'Google Calendar API', imglink: "https://sites.google.com/a/editorblogger.com/diplomado-implementacion-de-aulas-virtuales/_/rsrc/1472474322323/home/Google-Calendar-icon.png",description: 'Open Sources FE package'},
+    {id: 6, name: 'Font Awsome', imglink: "https://www.drupal.org/files/project-images/font_awesome_logo.png",description: 'Open Source Icon Package'},
+    {id: 7, name: 'IPFS', imglink: "https://upload.wikimedia.org/wikipedia/commons/1/18/Ipfs-logo-1024-ice-text.png",description: ' Decentralize Front End Host Platform'},
     
+    // https://www.drupal.org/files/project-images/font_awesome_logo.png
     // https://sites.google.com/a/editorblogger.com/diplomado-implementacion-de-aulas-virtuales/_/rsrc/1472474322323/home/Google-Calendar-icon.png
     
 ];
@@ -152,6 +157,32 @@ function About(props) {
                     </Typography>
                     <Typography>
                       {card.description}
+                    </Typography>
+                    <Typography>
+                      <FontAwesomeIcon style={{
+                          height: '24px',
+                          width: '24px',
+                        }}
+                        icon={faWeibo}
+                        color="#DF2029"/>
+                      <FontAwesomeIcon style={{
+                          height: '24px',
+                          width: '24px',
+                        }}
+                        icon={faWeixin}
+                        color="#7BB32E"/>
+                      <FontAwesomeIcon style={{
+                          height: '24px',
+                          width: '24px',
+                        }}
+                        icon={faTwitter}
+                        color="#1DA1F2"/>
+                      <FontAwesomeIcon style={{
+                          height: '24px',
+                          width: '24px',
+                        }}
+                        icon={faGithub}
+                        color="#333"/>
                     </Typography>
                   </CardContent>
                 </Card>
