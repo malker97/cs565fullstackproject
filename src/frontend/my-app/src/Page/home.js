@@ -28,17 +28,14 @@ function Home() {
 
   const get_task = () => {
     axios
-      .get(
-        `/api/tasks/user/62147376148f79aabeab4c45`
-      )
+      .get(`/api/tasks/user/62147376148f79aabeab4c45`)
       .then((res) => {
-        console.log(res.data)
+        console.log(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
   };
-
 
   useEffect(() => {
     get_task();

@@ -16,6 +16,8 @@ const app = express();
 
 app.use(cors());
 
+app.set("view engine", "jade");
+
 // Add middleware:
 app.use(express.static(path.join(__dirname, "..", "build")));
 //app.use(express.static("public"));
