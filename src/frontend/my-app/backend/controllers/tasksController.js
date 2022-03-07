@@ -45,11 +45,21 @@ exports.user_tasks_list = (req, res, next) => {
 // POST /api/tasks/create
 exports.task_create_post = [
   // Validate and sanitize fields.
+  /*
   body("name", "Name must not be empty.").trim().isLength({ min: 1 }).escape(),
   body("comment", "").trim().escape(),
   body("start_date", "Invalid date.").optional({ checkFalsy: true }).isISO8601().toDate(),
   body("end_date", "Invalid date.").optional({ checkFalsy: true }).isISO8601().toDate(),
   body("completed", "").default(false).escape(),
+  body("location", "").trim().escape(),
+  body("user", "User must not be empty.").trim().isLength({ min: 1 }).escape(),
+  */
+
+  body("eventttl", "Name must not be empty.").trim().isLength({ min: 1 }).escape(),
+  body("descriptioh", "").trim().escape(),
+  body("startDate", "Invalid date.").optional({ checkFalsy: true }).isISO8601().toDate(),
+  body("endDate", "Invalid date.").optional({ checkFalsy: true }).isISO8601().toDate(),
+  //body("completed", "").default(false).escape(),
   body("location", "").trim().escape(),
   body("user", "User must not be empty.").trim().isLength({ min: 1 }).escape(),
 
@@ -61,11 +71,11 @@ exports.task_create_post = [
 
     // Create a Task object with escaped and trimmed data.
     const task = new Tasks({
-      name: req.body.name,
-      comment: req.body.comment,
-      start_date: req.body.start_date,
-      end_date: req.body.end_date,
-      completed: req.body.completed,
+      name: req.body.eventttl,
+      comment: req.body.description,
+      start_date: req.body.startDate,
+      end_date: req.body.endDate,
+      //completed: req.body.completed,
       location: req.body.location,
       user_id: req.body.user_id,
     });
