@@ -12,14 +12,35 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { DateTimePicker } from "@material-ui/pickers";
 import { useEffect, useState } from "react";
+import axios from 'axios';
 import { createStore, action, useStoreActions, useStoreState } from "easy-peasy";
+// import { Alert } from 'react-alert';
+
 const theme = createTheme();
+const defaultValues = {
+  eventttl: "",
+  startDate: "",
+  endDate: "",
+  location: "",
+  description: 0,
+};
 
 export default function SignUp() {
 
   const userid = useStoreState((state) => state.userid);
-
+  const [formValues, setFormValues] = useState(defaultValues);
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues({
+      ...formValues,
+      [name]: value,
+    });
+  };
   const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(formValues);
+    // `/api/tasks/user/${userid}`
+    axios.post('http://localhost:3010/api/tasks/create',formValues);
   };
   const [selectedDate, handleDateChange] = useState(new Date());
   return (
@@ -38,6 +59,7 @@ export default function SignUp() {
             Add Event
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          {/* <form onSubmit={handleSubmit}> */}
             <Grid container spacing={3}>
               <Grid item xs={12}>
               <TextField
@@ -46,6 +68,8 @@ export default function SignUp() {
                   label="Event Title"
                   type="eventttl"
                   id="eventttl"
+                  value={formValues.name}
+                  onChange={handleInputChange}
                 />
               </Grid>
             <Grid item xs={6}>
@@ -57,6 +81,8 @@ export default function SignUp() {
                 //   label="startDate"
                   type="date"
                   id="startdate"
+                  value={formValues.name}
+                  onChange={handleInputChange}
                 />
               </Grid>
               <Grid item xs={6}>
@@ -68,6 +94,8 @@ export default function SignUp() {
                   name="endDate"
                   type="date"
                   id="enddate"
+                  value={formValues.name}
+                  onChange={handleInputChange}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -78,6 +106,8 @@ export default function SignUp() {
                   label="Location"
                   type="location"
                   id="location"
+                  value={formValues.name}
+                  onChange={handleInputChange}
                 />
               </Grid>
               <Grid item xs={12} style={{height: 200}}>
@@ -88,7 +118,8 @@ export default function SignUp() {
                   label="Description"
                   type="text"
                   id="description"
-                  
+                  value={formValues.name}
+                  onChange={handleInputChange}
                 />
               </Grid>
             </Grid>
@@ -100,7 +131,8 @@ export default function SignUp() {
             >
               Submit
             </Button>
-          </Box>
+            {/* </form> */}
+            </Box>
         </Box>
       </Container>
     </ThemeProvider>
