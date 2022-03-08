@@ -1,4 +1,5 @@
 const Tasks = require("../models/tasks");
+const Users = require("../models/users");
 const { body, validationResult } = require("express-validator");
 //var async = require("async");
 const { DateTime } = require("luxon");
@@ -46,19 +47,6 @@ exports.user_tasks_list = (req, res, next) => {
 // POST /api/tasks/create
 exports.task_create_post = [
   // Validate and sanitize fields.
-  /*
-  body("name", "Name must not be empty.").trim().isLength({ min: 1 }).escape(),
-  body("comment", "").trim().escape(),
-  body("start_date", "Invalid date.").optional({ checkFalsy: true }).isISO8601().toDate(),
-  body("end_date", "Invalid date.").optional({ checkFalsy: true }).isISO8601().toDate(),
-  body("completed", "").default(false).escape(),
-  body("location", "").trim().escape(),
-  body("user", "User must not be empty.").trim().isLength({ min: 1 }).escape(),
-  */
-
-  //(req, res, next) => {
-  //console.log(req.body);
-  //},
 
   body("eventttl", "Name must not be empty.").trim().isLength({ min: 1 }).escape(),
   body("description", "").trim().escape(),
@@ -66,7 +54,7 @@ exports.task_create_post = [
   body("endDate", "Invalid date.").optional({ checkFalsy: true }).isISO8601().toDate(),
   //body("completed", "").default(false).escape(),
   body("location", "").trim().escape(),
-  body("user_id", "User must not be empty.").trim().isLength({ min: 1 }).escape(),
+  //body("user_id", "User must not be empty.").trim().isLength({ min: 1 }).escape(),
 
   // Process request after validation and sanitization.
   (req, res, next) => {
@@ -74,9 +62,27 @@ exports.task_create_post = [
     // Extract the validation errors from a request.
     const errors = validationResult(req);
 
-    //console.log(`Errors: ${errors}`);
+    let user;
+    if (req.body.user_id === "") {
+      // Create a Task object with escaped and trimmed data.
+      user = new Users({
+        name: "Anonymous",
+      });
+      //console.log(`New user id: ${user._id}`);
+    }
 
-    console.log(req.body);
+    let user_id;
+    if (user !== undefined) {
+      user_id = user._id;
+      user.save((err) => {
+        if (err) {
+          console.log("New user save error.");
+          return next(err);
+        }
+      });
+    } else {
+      user_id = req.body.user_id;
+    }
 
     // Create a Task object with escaped and trimmed data.
     const task = new Tasks({
@@ -85,10 +91,8 @@ exports.task_create_post = [
       start_time: req.body.startDate,
       end_time: req.body.endDate,
       location: req.body.location,
-      user_id: req.body.user_id,
+      user_id: user_id,
     });
-
-    console.log(task);
 
     // TODO Not sure what this should look like yet:
     if (!errors.isEmpty()) {
