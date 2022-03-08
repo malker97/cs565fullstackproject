@@ -1,6 +1,7 @@
 const Tasks = require("../models/tasks");
 const { body, validationResult } = require("express-validator");
 //var async = require("async");
+const { DateTime } = require("luxon");
 
 // GET /api/tasks
 exports.tasks_list = (req, res, next) => {
@@ -55,12 +56,12 @@ exports.task_create_post = [
   body("user", "User must not be empty.").trim().isLength({ min: 1 }).escape(),
   */
 
-  (req, res, next) => {
-    console.log(req.body);
-  },
+  //(req, res, next) => {
+  //console.log(req.body);
+  //},
 
   body("eventttl", "Name must not be empty.").trim().isLength({ min: 1 }).escape(),
-  body("descriptioh", "").trim().escape(),
+  body("description", "").trim().escape(),
   body("startDate", "Invalid date.").optional({ checkFalsy: true }).isISO8601().toDate(),
   body("endDate", "Invalid date.").optional({ checkFalsy: true }).isISO8601().toDate(),
   //body("completed", "").default(false).escape(),
@@ -73,18 +74,21 @@ exports.task_create_post = [
     // Extract the validation errors from a request.
     const errors = validationResult(req);
 
+    //console.log(`Errors: ${errors}`);
+
     console.log(req.body);
 
     // Create a Task object with escaped and trimmed data.
     const task = new Tasks({
       name: req.body.eventttl,
       comment: req.body.description,
-      start_date: req.body.startDate,
-      end_date: req.body.endDate,
-      //completed: req.body.completed,
+      start_time: req.body.startDate,
+      end_time: req.body.endDate,
       location: req.body.location,
       user_id: req.body.user_id,
     });
+
+    console.log(task);
 
     // TODO Not sure what this should look like yet:
     if (!errors.isEmpty()) {
@@ -94,7 +98,7 @@ exports.task_create_post = [
         return;
       }
     } else {
-      // Data from form is valid. Save book.
+      // Data from form is valid. Save task.
       task.save((err) => {
         if (err) {
           return next(err);
