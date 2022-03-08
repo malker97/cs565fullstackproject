@@ -55,19 +55,25 @@ exports.task_create_post = [
   body("user", "User must not be empty.").trim().isLength({ min: 1 }).escape(),
   */
 
+  (req, res, next) => {
+    console.log(req.body);
+  },
+
   body("eventttl", "Name must not be empty.").trim().isLength({ min: 1 }).escape(),
   body("descriptioh", "").trim().escape(),
   body("startDate", "Invalid date.").optional({ checkFalsy: true }).isISO8601().toDate(),
   body("endDate", "Invalid date.").optional({ checkFalsy: true }).isISO8601().toDate(),
   //body("completed", "").default(false).escape(),
   body("location", "").trim().escape(),
-  body("user", "User must not be empty.").trim().isLength({ min: 1 }).escape(),
+  body("user_id", "User must not be empty.").trim().isLength({ min: 1 }).escape(),
 
   // Process request after validation and sanitization.
   (req, res, next) => {
     res.header({ "Access-Control-Allow-Origin": "*" });
     // Extract the validation errors from a request.
     const errors = validationResult(req);
+
+    console.log(req.body);
 
     // Create a Task object with escaped and trimmed data.
     const task = new Tasks({
@@ -83,8 +89,10 @@ exports.task_create_post = [
     // TODO Not sure what this should look like yet:
     if (!errors.isEmpty()) {
       // Return some error info:
-
       console.log("Error in task_create_post!");
+      if (task === undefined) {
+        return;
+      }
     } else {
       // Data from form is valid. Save book.
       task.save((err) => {
