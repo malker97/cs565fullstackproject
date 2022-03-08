@@ -34,8 +34,11 @@ app.use("/api/about", aboutRouter);
 app.use("/api/tasks", tasksRouter);
 app.use("/api/news", newsRouter);
 
+// app.use((req, res, next) => {
+//   res.sendFile(path.join(__dirname, "..", "build", "index.html"));
+// });
 app.use((req, res, next) => {
-  res.sendFile(path.join(__dirname, "..", "build", "index.html"));
+  res.sendFile("https://deploytest-343305.wl.r.appspot.com/index.html");
 });
 
 //Set up mongoose connection
