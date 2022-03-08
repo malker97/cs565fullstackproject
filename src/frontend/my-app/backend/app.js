@@ -20,8 +20,14 @@ app.set("view engine", "jade");
 
 // Add middleware:
 app.use(express.static(path.join(__dirname, "..", "build")));
+//app.use(express.static("https://deploytest-343305.wl.r.appspot.com/index.html"));
 //app.use(express.static("public"));
 app.use(express.static(path.join(__dirname, "public")));
+
+app.use(logger("dev"));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
 
 app.use("/api/users", usersRouter);
 app.use("/api/about", aboutRouter);
@@ -31,6 +37,9 @@ app.use("/api/news", newsRouter);
 app.use((req, res, next) => {
   res.sendFile(path.join(__dirname, "..", "build", "index.html"));
 });
+// app.use((req, res, next) => {
+//   res.sendFile("https://deploytest-343305.wl.r.appspot.com/index.html");
+// });
 
 //Set up mongoose connection
 const mongoose = require("mongoose");
@@ -42,11 +51,6 @@ const mongoDB = `mongodb+srv://${process.env.DBUSERNAME}:${process.env.DBPASSWOR
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
-
-app.use(logger("dev"));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
