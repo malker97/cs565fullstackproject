@@ -19,7 +19,8 @@ app.use(cors());
 app.set("view engine", "jade");
 
 // Add middleware:
-app.use(express.static(path.join(__dirname, "..", "build")));
+//app.use(express.static(path.join(__dirname, "..", "build")));
+app.use(express.static("https://deploytest-343305.wl.r.appspot.com/index.html"));
 //app.use(express.static("public"));
 app.use(express.static(path.join(__dirname, "public")));
 
