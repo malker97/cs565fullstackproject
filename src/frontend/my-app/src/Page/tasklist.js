@@ -17,13 +17,13 @@ const columns = [
   {
     field: 'starttime',
     headerName: 'Start Time',
-    width: 200,
+    width: 150,
     editable: true,
   },
   {
     field: 'endtime',
     headerName: 'End Time',
-    width: 200,
+    width: 150,
     editable: true,
   },
   {
@@ -79,8 +79,8 @@ function Tasklist() {
         formateddata.push({
           "id": element._id,
           "name": element.name,
-          "starttime": element.start_time,
-          "endtime": element.end_time,
+          "starttime": element.start_date_formatted,
+          "endtime": element.end_date_formatted,
           "location": element.location,
           "description": element.comment
         });
