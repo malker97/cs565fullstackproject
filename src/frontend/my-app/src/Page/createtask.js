@@ -18,6 +18,7 @@ import { createStore, action, useStoreActions, useStoreState } from "easy-peasy"
 
 const theme = createTheme();
 const defaultValues = {
+  user_id:"",
   eventttl: "",
   startDate: "",
   endDate: "",
@@ -34,12 +35,12 @@ export default function SignUp() {
     setFormValues({
       ...formValues,
       [name]: value,
+      user_id: userid,
     });
   };
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(formValues);
-    // `/api/tasks/user/${userid}`
     axios.post('http://localhost:3010/api/tasks/create',formValues);
   };
   const [selectedDate, handleDateChange] = useState(new Date());
@@ -56,7 +57,7 @@ export default function SignUp() {
           }}
         >
           <Typography component="h1" variant="h5">
-            Add Event
+            Add new Task to {userid}
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
           {/* <form onSubmit={handleSubmit}> */}
