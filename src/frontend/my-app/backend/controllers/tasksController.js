@@ -31,11 +31,49 @@ exports.task_detail = (req, res, next) => {
 // GET /api/tasks/user/:id
 exports.user_tasks_list = (req, res, next) => {
   res.header({ "Access-Control-Allow-Origin": "*" });
+
+  /*
   Tasks.find({ user_id: `${req.params.user_id}` }).exec((err, tasks) => {
     if (err) {
       return next(err);
     }
     res.json(tasks);
+  });
+  */
+
+  Users.findOne({ name: `${req.params.user_id}` }).exec((err, user) => {
+    console.log("user: ", user);
+    if (err) {
+      console.log("Find user failure.");
+      return next(err);
+    }
+    if (user !== null) {
+      console.log("user._id: ", user._id);
+      console.log("name: ", req.params.user_id);
+
+      // Get user_id to pass to Tasks:
+      Tasks.find({ user_id: `${user._id}` }).exec((err, tasks) => {
+        if (err) {
+          console.log("Find tasks failure.");
+          return next(err);
+        }
+        res.json(tasks);
+      });
+    } else {
+      console.log("new user: ", req.params.user_id);
+      // Create a new user:
+      const new_user = new Users({
+        name: req.params.user_id,
+      });
+      new_user.save((err) => {
+        if (err) {
+          console.log("New user save failure.");
+          return next(err);
+        }
+        // Success -- return status:
+        res.status(200);
+      });
+    }
   });
 };
 
@@ -54,7 +92,7 @@ exports.task_create_post = [
   body("endDate", "Invalid date.").optional({ checkFalsy: true }).isISO8601().toDate(),
   //body("completed", "").default(false).escape(),
   body("location", "").trim().escape(),
-  //body("user_id", "User must not be empty.").trim().isLength({ min: 1 }).escape(),
+  body("user_id", "User must not be empty.").trim().isLength({ min: 1 }).escape(),
 
   // Process request after validation and sanitization.
   (req, res, next) => {
@@ -63,54 +101,65 @@ exports.task_create_post = [
     const errors = validationResult(req);
 
     let user;
-    if (req.body.user_id === "") {
-      // Create a Task object with escaped and trimmed data.
-      user = new Users({
-        name: "Anonymous",
-      });
-      //console.log(`New user id: ${user._id}`);
-    }
+    // if (req.body.user_id === "") {
+    //   // Create a Users object
+    //   user = new Users({
+    //     name: "Anonymous",
+    //   });
+    //   //console.log(`New user id: ${user._id}`);
+    // }
 
-    let user_id;
-    if (user !== undefined) {
-      user_id = user._id;
-      user.save((err) => {
+    // let user_id;
+    // if (user !== undefined) {
+    //   user_id = user._id;
+    //   user.save((err) => {
+    //     if (err) {
+    //       console.log("New user save error.");
+    //       return next(err);
+    //     }
+    //   });
+    // } else {
+    //   user_id = req.body.user_id;
+    // }
+
+    console.log("user_id: ", req.body.user_id);
+    Users.findOne({ name: `${req.body.user_id}` })
+      .populate("_id")
+      .exec((err, user) => {
+        console.log("user: ", user);
         if (err) {
-          console.log("New user save error.");
+          console.log("Find user failure.");
           return next(err);
         }
-      });
-    } else {
-      user_id = req.body.user_id;
-    }
 
-    // Create a Task object with escaped and trimmed data.
-    const task = new Tasks({
-      name: req.body.eventttl,
-      comment: req.body.description,
-      start_time: req.body.startDate,
-      end_time: req.body.endDate,
-      location: req.body.location,
-      user_id: user_id,
-    });
+        // Create a Task object with escaped and trimmed data.
+        const task = new Tasks({
+          name: req.body.eventttl,
+          comment: req.body.description,
+          start_time: req.body.startDate,
+          end_time: req.body.endDate,
+          location: req.body.location,
+          user_id: user._id, //user_id,
+        });
 
-    // TODO Not sure what this should look like yet:
-    if (!errors.isEmpty()) {
-      // Return some error info:
-      console.log("Error in task_create_post!");
-      if (task === undefined) {
-        return;
-      }
-    } else {
-      // Data from form is valid. Save task.
-      task.save((err) => {
-        if (err) {
-          return next(err);
+        // TODO Not sure what this should look like yet:
+        if (!errors.isEmpty()) {
+          // Return some error info:
+          console.log("Error in task_create_post!");
+          if (task === undefined) {
+            return;
+          }
+        } else {
+          // Data from form is valid. Save task.
+          task.save((err) => {
+            if (err) {
+              return next(err);
+            }
+            // Success -- return status:
+            res.status(200);
+          });
         }
-        // Success -- return status:
-        res.status(200);
       });
-    }
   },
 ];
 
