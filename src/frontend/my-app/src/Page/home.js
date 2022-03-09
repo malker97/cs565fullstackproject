@@ -27,8 +27,9 @@ function Home() {
   const setid = useStoreActions((actions) => actions.setid);
 
   const get_task = () => {
+    console.log("in get_task: ", userid);
     axios
-      .get(`/api/tasks/user/62147376148f79aabeab4c45`)
+      .get(`/api/tasks/user/test1`)
       .then((res) => {
         console.log(res.data);
       })
@@ -38,7 +39,7 @@ function Home() {
   };
 
   useEffect(() => {
-    get_task();
+    //get_task();
     if (userid !== "" && ifnew === true) {
       setnewuser(true);
     }
@@ -55,6 +56,7 @@ function Home() {
           className="idinput"
           onChange={(e) => {
             setuserid(e.target.value);
+            //console.log("after setuserid: ", userid);
             console.log(e.target.value);
           }}
         />
@@ -66,6 +68,7 @@ function Home() {
           onClick={(e) => {
             login(true);
             setid(userid);
+            //console.log(userid);
           }}
         >
           Submit
