@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import News_card from "./news_card";
 import axios from "axios";
 import { useStoreState } from "easy-peasy";
+import data from "../exampled_json/jsononline-net.json";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,6 +34,7 @@ function News() {
 
   const classes = useStyles();
   const [info, setinfo] = useState([]);
+  const [fakeinfo, setfakeinfo] = useState([]);
   const API_KEY = "cc1aef5aebcd496e984b8d55cbe8a4de";
   const formateddata = [];
 
@@ -51,8 +53,9 @@ function News() {
   };
 
   const getformat = () => {
-    if (info) {
-      info.map((element) => {
+    console.log(data.articles);
+    if (data.articles) {
+      data.articles.map((element) => {
         formateddata.push({
           "src": element.url,
           "image": element.urlToImage,
@@ -61,6 +64,7 @@ function News() {
           "description": element.description
         });
       });
+      console.log(formateddata)
       return formateddata.map((row) => {
         return (
           <News_card data={row} />
@@ -69,8 +73,10 @@ function News() {
     }
   }
 
+
+
   useEffect(() => {
-    get_news();
+    // get_news();
   }, []);
 
   return (
