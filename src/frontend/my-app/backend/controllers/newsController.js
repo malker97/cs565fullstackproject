@@ -1,5 +1,4 @@
 const News = require("../models/news");
-//const async = require("async");
 
 // GET /api/news
 exports.news_list = (req, res) => {
