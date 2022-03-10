@@ -1,5 +1,8 @@
 # cs565fullstackproject
 
+## Deployed website
+https://young-haze-4761.on.fleek.co/ 
+
 ### What is our app?
 Our app will manage user's task information by getting task information from user and then add then to bacnend then return it back to task list page.
 
