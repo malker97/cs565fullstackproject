@@ -12,8 +12,12 @@ router.get("/", tasks_controller.tasks_list);
 // GET /api/tasks/:id
 router.get("/:id", tasks_controller.task_detail);
 
+// This is supposed to be for cases when no user_id is passed:
+// GET /api/tasks/user/
+router.get("/user", tasks_controller.empty_user_tasks_list);
+
 // Get all tasks for a single user:
-// GET /api/tasks/user/:id
+// GET /api/tasks/user/:user_id
 router.get("/user/:user_id", tasks_controller.user_tasks_list);
 
 // Create a task:
