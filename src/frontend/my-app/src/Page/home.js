@@ -57,7 +57,6 @@ function Home() {
           onChange={(e) => {
             setuserid(e.target.value);
             //console.log("after setuserid: ", userid);
-            console.log(e.target.value);
           }}
         />
         <br />
@@ -66,7 +65,10 @@ function Home() {
           variant="contained"
           color="primary"
           onClick={(e) => {
-            login(true);
+            console.log("This is use id" + userid)
+            if(userid!==""){
+              login(true);
+            }
             setid(userid);
             //console.log(userid);
           }}

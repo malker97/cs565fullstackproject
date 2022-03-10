@@ -66,7 +66,9 @@ function Tasklist() {
       )
       .then((res) => {
         console.log(res.data)
-        setinfo(res.data)
+        if(Array.isArray(res.data)){
+          setinfo(res.data)
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -74,6 +76,7 @@ function Tasklist() {
   };
 
   const getformat = () => {
+    console.log(info);
     if (info) {
       info.map((element) => {
         formateddata.push({
