@@ -26,7 +26,7 @@ in it.
 ### What is a user name I could use to test?
 `test1` this is one of the user id that could be use to test.
 How this work is to enter this user id in home page and click submit, then the pag will auto direct to task page.
-
+## Here is some other user name you could use. You could also test out with random name, that will create a new user. Have fun :)
 ```
 test1
 test2
