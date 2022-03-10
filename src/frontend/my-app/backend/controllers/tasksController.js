@@ -1,8 +1,15 @@
 const Tasks = require("../models/tasks");
 const Users = require("../models/users");
 const { body, validationResult } = require("express-validator");
-//var async = require("async");
-const { DateTime } = require("luxon");
+
+// The only code used in the final project so far is for these endpoints:
+//
+// GET /api/tasks/user/:id -> user_task_list()
+// POST /api/tasks/create -> task_create_post[]
+//
+// Rest of the code was set up as a starting point for other CRUD operations.
+// It was only minimally tested upon creation and has not been updated as the
+// codebase has evolved.
 
 // GET /api/tasks
 exports.tasks_list = (req, res, next) => {
@@ -15,9 +22,8 @@ exports.tasks_list = (req, res, next) => {
   });
 };
 
-// FIXME If a user ID is passed here, func returns null instead of a 500.
-// Do we need to consider this?
 // GET /api/tasks/:id
+// FIXME If a user ID is passed here, func returns null instead of a 500:
 exports.task_detail = (req, res, next) => {
   res.header({ "Access-Control-Allow-Origin": "*" });
   Tasks.findById(req.params.id).exec((err, task) => {
@@ -28,71 +34,78 @@ exports.task_detail = (req, res, next) => {
   });
 };
 
-// GET /api/tasks/user/:id
+// This doesn't seem to work, but not sure why not?:
+// GET /api/tasks/user
+exports.empty_user_tasks_list = (req, res, next) => {
+  console.log("We didn't receive a user name, please re-enter/re-submit.");
+  return res.status(400);
+};
+
+// *** This endpoint is used ***
+// GET /api/tasks/user/:user_id
+// Provide the front end with the task list for a given user:
 exports.user_tasks_list = (req, res, next) => {
   res.header({ "Access-Control-Allow-Origin": "*" });
-
-  /*
-  Tasks.find({ user_id: `${req.params.user_id}` }).exec((err, tasks) => {
-    if (err) {
-      return next(err);
-    }
-    res.json(tasks);
-  });
-  */
-
+  // We now search for user name, not user id, but the param is still user_id.
+  // Look for the user name in the DB:
   Users.findOne({ name: `${req.params.user_id}` }).exec((err, user) => {
-    console.log("user: ", user);
+    //console.log("user: ", user);
     if (err) {
       console.log("Find user failure.");
       return next(err);
     }
+    // If we find the user ...
     if (user !== null) {
       console.log("user._id: ", user._id);
       console.log("name: ", req.params.user_id);
 
-      // Get user_id to pass to Tasks:
+      // ... get all tasks for that user:
       Tasks.find({ user_id: `${user._id}` }).exec((err, tasks) => {
         if (err) {
           console.log("Find tasks failure.");
           return next(err);
         }
+        // And return the tasks JSON in the response.
         res.json(tasks);
       });
+      // If we do not find the user ...
     } else {
       console.log("new user: ", req.params.user_id);
-      // Create a new user:
+      // ... create a new user:
       const new_user = new Users({
         name: req.params.user_id,
       });
+      // And save the new user to the DB:
       new_user.save((err) => {
         if (err) {
           console.log("New user save failure.");
           return next(err);
         }
-        // Success -- return status:
-        res.status(200);
+        // Success -- respond with the new user JSON so FE knows what happened:
+        res.json(new_user);
       });
     }
   });
 };
 
-// GET /api/tasks/create
-// exports.task_create_get = function (req, res) {
-//   res.send("NOT IMPLEMENTED: Tasks create GET");
-// };
-
+// *** This endpoint is used ***
 // POST /api/tasks/create
+// When the front end submits the createtask form:
 exports.task_create_post = [
-  // Validate and sanitize fields.
-
-  body("eventttl", "Name must not be empty.").trim().isLength({ min: 1 }).escape(),
+  // Validate and sanitize fields from POSTed form.
+  // I removed some requirements because currently there's no FE validation.
+  body("eventttl", "Name must not be empty.").trim().escape(),
   body("description", "").trim().escape(),
-  body("startDate", "Invalid date.").optional({ checkFalsy: true }).isISO8601().toDate(),
-  body("endDate", "Invalid date.").optional({ checkFalsy: true }).isISO8601().toDate(),
-  //body("completed", "").default(false).escape(),
+  body("startDate", "Invalid date.")
+    .optional({ checkFalsy: true })
+    .isISO8601()
+    .toDate(),
+  body("endDate", "Invalid date.")
+    .optional({ checkFalsy: true })
+    .isISO8601()
+    .toDate(),
   body("location", "").trim().escape(),
-  body("user_id", "User must not be empty.").trim().isLength({ min: 1 }).escape(),
+  body("user_id", "User must not be empty.").trim().escape(),
 
   // Process request after validation and sanitization.
   (req, res, next) => {
@@ -100,33 +113,15 @@ exports.task_create_post = [
     // Extract the validation errors from a request.
     const errors = validationResult(req);
 
-    let user;
-    // if (req.body.user_id === "") {
-    //   // Create a Users object
-    //   user = new Users({
-    //     name: "Anonymous",
-    //   });
-    //   //console.log(`New user id: ${user._id}`);
-    // }
-
-    // let user_id;
-    // if (user !== undefined) {
-    //   user_id = user._id;
-    //   user.save((err) => {
-    //     if (err) {
-    //       console.log("New user save error.");
-    //       return next(err);
-    //     }
-    //   });
-    // } else {
-    //   user_id = req.body.user_id;
-    // }
+    if (req.body.user_id == null) {
+      console.log("User must not be null.");
+      res.status(400);
+    }
 
     console.log("user_id: ", req.body.user_id);
     Users.findOne({ name: `${req.body.user_id}` })
       .populate("_id")
       .exec((err, user) => {
-        console.log("user: ", user);
         if (err) {
           console.log("Find user failure.");
           return next(err);
@@ -191,8 +186,14 @@ exports.task_update_post = [
   // Validate and sanitize fields.
   body("name", "Name must not be empty.").trim().isLength({ min: 1 }).escape(),
   body("comment", "").trim().escape(),
-  body("start_date", "Invalid date.").optional({ checkFalsy: true }).isISO8601().toDate(),
-  body("end_date", "Invalid date.").optional({ checkFalsy: true }).isISO8601().toDate(),
+  body("start_date", "Invalid date.")
+    .optional({ checkFalsy: true })
+    .isISO8601()
+    .toDate(),
+  body("end_date", "Invalid date.")
+    .optional({ checkFalsy: true })
+    .isISO8601()
+    .toDate(),
   body("completed", "").default(false).escape(),
   body("location", "").trim().escape(),
   body("user", "User must not be empty.").trim().isLength({ min: 1 }).escape(),
