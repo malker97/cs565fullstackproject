@@ -1,5 +1,4 @@
 const About = require("../models/about");
-//const async = require("async");
 const { body, validationResult } = require("express-validator");
 
 exports.about_list = (req, res, next) => {
@@ -106,7 +105,10 @@ exports.about_person_update_get = (req, res) => {
 exports.about_person_update_post = [
   // Validate and sanitize the name field.
   body("name", "Name required").trim().isLength({ min: 1 }).escape(),
-  body("description", "Description required").trim().isLength({ min: 1 }).escape(),
+  body("description", "Description required")
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
   //body("image", "").trim().isLength({ min: 1 }).escape(),
 
   // Process request after validation and sanitization.

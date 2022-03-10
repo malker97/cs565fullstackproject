@@ -18,11 +18,8 @@ app.use(cors());
 
 app.set("view engine", "jade");
 
-// Add middleware:
-app.use(express.static(path.join(__dirname, "..", "build")));
-//app.use(express.static("https://deploytest-343305.wl.r.appspot.com/index.html"));
-//app.use(express.static("public"));
-app.use(express.static(path.join(__dirname, "public")));
+// Not used in the Heroku deployment:
+//app.use(express.static(path.join(__dirname, "..", "build")));
 
 app.use(logger("dev"));
 app.use(express.json());
@@ -34,11 +31,9 @@ app.use("/api/about", aboutRouter);
 app.use("/api/tasks", tasksRouter);
 app.use("/api/news", newsRouter);
 
-app.use((req, res, next) => {
-  res.sendFile(path.join(__dirname, "..", "build", "index.html"));
-});
+// Not used in the Heroku deployment:
 // app.use((req, res, next) => {
-//   res.sendFile("https://deploytest-343305.wl.r.appspot.com/index.html");
+//   res.sendFile(path.join(__dirname, "..", "build", "index.html"));
 // });
 
 //Set up mongoose connection
