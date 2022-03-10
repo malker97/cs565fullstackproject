@@ -34,7 +34,7 @@ exports.task_detail = (req, res, next) => {
   });
 };
 
-// This doesn't seem to work, but not sure why not?:
+// For when no user name is passed -- doesn't seem to work, not sure why not?:
 // GET /api/tasks/user
 exports.empty_user_tasks_list = (req, res, next) => {
   console.log("We didn't receive a user name, please re-enter/re-submit.");
