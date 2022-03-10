@@ -6,12 +6,12 @@ const opts = { toJSON: { virtuals: true } };
 
 const TasksSchema = new Schema(
   {
-    name: { type: String, required: true },
-    comment: { type: String },
+    name: { type: String, default: "No Name" },
+    comment: { type: String, default: "No description" },
     start_time: { type: Date },
     end_time: { type: Date },
-    completed: { type: Boolean },
-    location: { type: String },
+    completed: { type: Boolean, default: false },
+    location: { type: String, default: "No location" },
     user_id: { type: Schema.Types.ObjectId, ref: "Users" },
   },
   opts
@@ -23,11 +23,15 @@ TasksSchema.virtual("url").get(function () {
 });
 
 TasksSchema.virtual("start_date_formatted").get(function () {
-  return DateTime.fromJSDate(this.start_time).toLocaleString(DateTime.DATETIME_SHORT);
+  return DateTime.fromJSDate(this.start_time).toLocaleString(
+    DateTime.DATETIME_SHORT
+  );
 });
 
 TasksSchema.virtual("end_date_formatted").get(function () {
-  return DateTime.fromJSDate(this.end_time).toLocaleString(DateTime.DATETIME_SHORT);
+  return DateTime.fromJSDate(this.end_time).toLocaleString(
+    DateTime.DATETIME_SHORT
+  );
 });
 
 //Export model
