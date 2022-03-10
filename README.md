@@ -23,11 +23,19 @@ in it.
 
 
 
-### What is a user id I could use to test?
-`62147376148f79aabeab4c45` this is one of the user id that could be use to test.
+### What is a user name I could use to test?
+`test1` this is one of the user id that could be use to test.
 How this work is to enter this user id in home page and click submit, then the pag will auto direct to task page.
 
-`6214740c148f79aabeab4c48` will be another user to test.
+```
+test1
+test2
+test3
+test4
+new user
+New
+NonExistantUser
+```
 
 
 
