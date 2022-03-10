@@ -1,6 +1,7 @@
 const Users = require("../models/users");
 const { body, validationResult } = require("express-validator");
-//var async = require("async");
+
+// ### THIS CODE IS NOT USED ###
 
 exports.users_list = (req, res, next) => {
   res.header({ "Access-Control-Allow-Origin": "*" });
@@ -91,7 +92,10 @@ exports.user_delete = (req, res, next) => {
 exports.user_update_post = [
   // Validate and sanitize the name field.
   body("name", "Name required").trim().isLength({ min: 1 }).escape(),
-  body("description", "Description required").trim().isLength({ min: 1 }).escape(),
+  body("description", "Description required")
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
   //body("image", "").trim().isLength({ min: 1 }).escape(),
 
   // Process request after validation and sanitization.

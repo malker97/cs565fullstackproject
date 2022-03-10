@@ -1,6 +1,8 @@
 const About = require("../models/about");
 const { body, validationResult } = require("express-validator");
 
+// ### THIS CODE IS NOT USED ###
+
 exports.about_list = (req, res, next) => {
   About.find({}).exec((err, list_about) => {
     if (err) {

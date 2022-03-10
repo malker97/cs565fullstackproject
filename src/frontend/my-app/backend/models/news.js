@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+// ### THIS CODE IS NOT USED ###
+
 const NewsSchema = new Schema({
   title: { type: String, required: true },
   description: { type: String },

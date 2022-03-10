@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const users_controller = require("../controllers/usersController");
 
+// ### THIS CODE IS NOT USED ###
+
 // ABOUT ROUTES
 
 // Get all users:

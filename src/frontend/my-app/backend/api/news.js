@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const news_controller = require("../controllers/newsController");
 
+// ### THIS CODE IS NOT USED ###
+
 // NEWS ROUTES //
 
 router.get("/", news_controller.news_list);
