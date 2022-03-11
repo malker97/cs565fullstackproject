@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+// ***** THIS CODE IS NOT USED *****
+
 const AboutSchema = new Schema({
   name: { type: String, required: true, minLength: 1, maxLength: 100 },
   description: { type: String },

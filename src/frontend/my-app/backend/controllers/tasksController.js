@@ -2,7 +2,7 @@ const Tasks = require("../models/tasks");
 const Users = require("../models/users");
 const { body, validationResult } = require("express-validator");
 
-// The only code used in the final project so far is for these endpoints:
+// The controller code used in the final project so far is for these endpoints:
 //
 // GET /api/tasks/user/:id -> user_task_list()
 // POST /api/tasks/create -> task_create_post[]

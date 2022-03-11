@@ -1,5 +1,7 @@
 const News = require("../models/news");
 
+// ***** THIS CODE IS NOT USED *****
+
 // GET /api/news
 exports.news_list = (req, res) => {
   News.find({}).exec((err, list_news, next) => {
