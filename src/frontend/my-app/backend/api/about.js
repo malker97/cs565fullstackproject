@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const about_controller = require("../controllers/aboutController");
 
+// ***** THIS CODE IS NOT USED *****
+
 // ABOUT ROUTES
 
 // /api/about GET
